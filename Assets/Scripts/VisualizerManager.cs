@@ -5,9 +5,6 @@ public class VisualizerManager : MonoBehaviour
 {
     [SerializeField] private VisualizationSetting m_VisualizationSettings;
 
-    // ?
-    [SerializeField] private float m_TimeStep = 0.25f;
-
     [SerializeField] private GridManager m_GridManager;
     [SerializeField] private CellSelectionManager m_CellManager;
     [SerializeField] private UIManager m_UIManager;
@@ -27,8 +24,6 @@ public class VisualizerManager : MonoBehaviour
     {
         if (!(AppManager.Instance.AppState == AppManager.AppStates.RUNNING))
             return;
-
-        Helper.TimeStep = m_TimeStep;
 
         ShowParentArrows(m_GridManager.Grid.ToList());
         switch (m_VisualizationSettings.AlgorithmType)
@@ -90,12 +85,18 @@ public class VisualizerManager : MonoBehaviour
 
         foreach (var cell in _frontierCells)
         {
+            // Old color * (1 - alpha) + new color * alpha
+            //cell.SpriteRenderer.color = Color.Lerp(cell.SpriteRenderer.color, m_FrontierCellColor, 0.001f);
             cell.SpriteRenderer.color = m_FrontierCellColor;
+            //cell.Color = Color.Lerp(cell.SpriteRenderer.color, m_FrontierCellColor, 1);
+            //cell.SpriteRenderer.color = cell.SpriteRenderer.color * (1 - 0.5f) + m_FrontierCellColor * 0.5f/*m_FrontierCellColor*/;
         }
 
         foreach (var cell in _visitedCells)
         {
             cell.SpriteRenderer.color = m_VisitedCellColor;
+            //cell.Color = Color.Lerp(cell.SpriteRenderer.color, m_FrontierCellColor, 1);
+            //cell.Color = cell.SpriteRenderer.color * (1 - 0.5f) + m_VisitedCellColor * 0.5f;
         }
 
         if (_pathCells == null)
@@ -104,6 +105,12 @@ public class VisualizerManager : MonoBehaviour
         foreach (var cell in _pathCells)
         {
             cell.SpriteRenderer.color = m_PathCellColor;
+            //cell.Color = Color.Lerp(cell.SpriteRenderer.color, m_FrontierCellColor, 1);
+            //cell.SpriteRenderer.color = Color.Lerp(cell.SpriteRenderer.color, m_FrontierCellColor, 0.001f);
+
+            //cell.SpriteRenderer.color = cell.SpriteRenderer.color * (1 - 0.5f) + m_PathCellColor * 0.5f;
+
+            //cell.SpriteRenderer.color = cell.SpriteRenderer.color * (1 - 0.5f) + m_PathCellColor * 0.5f;
         }
         DrawLineBetweenCells(_pathCells);
 
@@ -213,6 +220,16 @@ public class VisualizerManager : MonoBehaviour
         m_UIManager.HandleCellSelectionStateButtons();
         Helper.ClearAlgorithms();
     }
+    public void OnClick_ClearPath()
+    {
+        ClearParentArrows();
+        ClearDistanceCosts();
+        ClearPathLines();
+        Helper.ClearAlgorithms();
+        AppManager.Instance.AppState = AppManager.AppStates.CELL_SELECTION;
+        m_UIManager.HandleCellSelectionStateButtons();
+        Helper.ClearAlgorithms();
+    }
 
     public void OnClick_ShowArrows()
     {
@@ -228,6 +245,11 @@ public class VisualizerManager : MonoBehaviour
 
         if (!m_ShowCosts)
             ClearDistanceCosts();
+    }
+
+    public void OnSliderChanged_AnimationSpeed(float _speed)
+    {
+        Helper.TimeStep = _speed;
     }
     #endregion
 }

@@ -8,8 +8,9 @@ public class CellSelectionManager : MonoBehaviour
     [SerializeField] private Color m_WallCellColor = Color.black;
     [SerializeField] private Color m_GrassColor = Color.green;
     [SerializeField] private Color m_WaterColor = Color.cyan;
+    [SerializeField] private Color m_MuddColor = Color.cyan;
 
-    private enum CellSelection { Start, End, Wall, Grass, Water }
+    private enum CellSelection { Default, Start, End, Wall, Grass, Mudd, Water }
 
     private CellSelection m_CellSelection;
 
@@ -67,6 +68,12 @@ public class CellSelectionManager : MonoBehaviour
 
                     switch (m_CellSelection)
                     {
+                        case CellSelection.Default:
+                            m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = true;
+                            m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = Color.white;
+                            m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 0;
+
+                            break;
                         // start cell selection
                         case CellSelection.Start:
                             // reset old selection
@@ -110,6 +117,10 @@ public class CellSelectionManager : MonoBehaviour
                             m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 5;
                             m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_WaterColor;
                             break;
+                        case CellSelection.Mudd:
+                            m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_MuddColor;
+                            m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 7;
+                            break;
                         default:
                             break;
                     }
@@ -139,6 +150,10 @@ public class CellSelectionManager : MonoBehaviour
     public void OnClick_EndCellSelection()
     {
         m_CellSelection = CellSelection.End;
+    }
+    public void OnClick_DefaultCellSelection()
+    {
+        m_CellSelection = CellSelection.Default;
     }
     public void OnClick_WallCellSelection()
     {

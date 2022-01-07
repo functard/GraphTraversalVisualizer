@@ -7,7 +7,8 @@ public enum ECellType
 {
     NORMAL,
     GRASS,
-    MUDD
+    MUDD,
+    WATER
 }
 
 public class Cell : IComparable<Cell>
@@ -50,7 +51,6 @@ public class Cell : IComparable<Cell>
         Weigth = 0;
 
         InitVisualFields(_prefab);
-
         G = 0;
         H = 0;
 

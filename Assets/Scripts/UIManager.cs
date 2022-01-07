@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject[] m_CellSelectionButtons;
     [SerializeField] private GameObject m_ShowDistanceCostButton;
     [SerializeField] private GameObject m_ShowParentButton;
+    [SerializeField] private GameObject m_GenerateNoiseGridButton;
+    [SerializeField] private GameObject m_AnimationSpeedSlider;
 
     /// <summary>
     /// Activates or deactivates all of the buttons nessecary for the RESIZING state
@@ -26,6 +28,8 @@ public class UIManager : MonoBehaviour
         m_RestartButton.SetActive(false);
         m_ShowParentButton.SetActive(false);
         m_ShowDistanceCostButton.SetActive(false);
+        m_AnimationSpeedSlider.SetActive(false);
+        m_GenerateNoiseGridButton.SetActive(false);
     }
 
     /// <summary>
@@ -41,6 +45,8 @@ public class UIManager : MonoBehaviour
         m_RestartButton.SetActive(true);
         m_ShowParentButton.SetActive(false);
         m_ShowDistanceCostButton.SetActive(false);
+        m_AnimationSpeedSlider.SetActive(false);
+        m_GenerateNoiseGridButton.SetActive(true);
     }
 
     /// <summary>
@@ -53,6 +59,8 @@ public class UIManager : MonoBehaviour
         m_ShowParentButton.SetActive(true);
         m_ShowDistanceCostButton.SetActive(true);
         m_VisualizeButton.SetActive(false);
+        m_AnimationSpeedSlider.SetActive(true);
+        m_GenerateNoiseGridButton.SetActive(false);
     }
 
     #region Button Functions
