@@ -39,6 +39,6 @@ public class GridManager : MonoBehaviour
 
     public void OnClick_GenerateNoiseMap()
     {
-        NoiseMapGenerator.GenerateMap(m_Grid.Width, m_Grid.Height, m_Grid);
+        NoiseMapGenerator.GenerateMap(m_Grid);
     }
 }

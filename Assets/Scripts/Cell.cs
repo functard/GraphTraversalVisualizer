@@ -199,6 +199,14 @@ public class Cell : IComparable<Cell>
         // Astar ? TODO: use a nullable type and check for null
         if (DistTraveled == -1 && other.DistTraveled == -1)
         {
+            if (F < other.F)
+                return -1;
+            else if (other.F < F)
+                return 1;
+            else
+            {
+                return H.CompareTo(other.H);
+            }
             int compare = F.CompareTo(other.F);
 
             if (compare == 0)

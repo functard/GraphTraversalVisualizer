@@ -7,8 +7,8 @@ public class CellSelectionManager : MonoBehaviour
     [SerializeField] private Sprite m_EndCellImage;
     [SerializeField] private Color m_WallCellColor = Color.black;
     [SerializeField] private Color m_GrassColor = Color.green;
-    [SerializeField] private Color m_WaterColor = Color.cyan;
-    [SerializeField] private Color m_MuddColor = Color.cyan;
+    [SerializeField] private Color m_WaterColor = Color.blue;
+    [SerializeField] private Color m_MuddColor = Color.yellow;
 
     private enum CellSelection { Default, Start, End, Wall, Grass, Mudd, Water }
 

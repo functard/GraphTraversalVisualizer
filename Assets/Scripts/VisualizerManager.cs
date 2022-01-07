@@ -85,18 +85,12 @@ public class VisualizerManager : MonoBehaviour
 
         foreach (var cell in _frontierCells)
         {
-            // Old color * (1 - alpha) + new color * alpha
-            //cell.SpriteRenderer.color = Color.Lerp(cell.SpriteRenderer.color, m_FrontierCellColor, 0.001f);
             cell.SpriteRenderer.color = m_FrontierCellColor;
-            //cell.Color = Color.Lerp(cell.SpriteRenderer.color, m_FrontierCellColor, 1);
-            //cell.SpriteRenderer.color = cell.SpriteRenderer.color * (1 - 0.5f) + m_FrontierCellColor * 0.5f/*m_FrontierCellColor*/;
         }
 
         foreach (var cell in _visitedCells)
         {
             cell.SpriteRenderer.color = m_VisitedCellColor;
-            //cell.Color = Color.Lerp(cell.SpriteRenderer.color, m_FrontierCellColor, 1);
-            //cell.Color = cell.SpriteRenderer.color * (1 - 0.5f) + m_VisitedCellColor * 0.5f;
         }
 
         if (_pathCells == null)
@@ -105,12 +99,6 @@ public class VisualizerManager : MonoBehaviour
         foreach (var cell in _pathCells)
         {
             cell.SpriteRenderer.color = m_PathCellColor;
-            //cell.Color = Color.Lerp(cell.SpriteRenderer.color, m_FrontierCellColor, 1);
-            //cell.SpriteRenderer.color = Color.Lerp(cell.SpriteRenderer.color, m_FrontierCellColor, 0.001f);
-
-            //cell.SpriteRenderer.color = cell.SpriteRenderer.color * (1 - 0.5f) + m_PathCellColor * 0.5f;
-
-            //cell.SpriteRenderer.color = cell.SpriteRenderer.color * (1 - 0.5f) + m_PathCellColor * 0.5f;
         }
         DrawLineBetweenCells(_pathCells);
 
@@ -126,7 +114,6 @@ public class VisualizerManager : MonoBehaviour
 
         if (m_VisualizationSettings.AlgorithmType == VisualizationSetting.EAlgorihmType.ASTAR)
         {
-
             foreach (Cell cell in _cells)
             {
                 cell.GCostText.text = cell.G.ToString();
