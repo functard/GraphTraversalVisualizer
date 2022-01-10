@@ -203,8 +203,10 @@ public class Cell : IComparable<Cell>
                 return -1;
             else if (other.F < F)
                 return 1;
+            // if both f values are the same
             else
             {
+                // compare the h values
                 return H.CompareTo(other.H);
             }
             int compare = F.CompareTo(other.F);

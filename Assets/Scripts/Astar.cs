@@ -138,7 +138,6 @@ public static class Astar
                         neighbour.G = tentativeScore;
                         neighbour.H = Helper.GetDistance(neighbour, _end);
                         neighbour.Parent = curr;
-                        //neighbour.Priority = neighbour.F;
 
                         if (!OpenList.Contains(neighbour))
                         {

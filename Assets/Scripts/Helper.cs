@@ -1,10 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public static class Helper
 {
     public static float TimeStep = 0.25f;
+    
+    // 1.4 * min(dx,dy) + dx - dy
+    // min of dx-dy gives the needed diagonal movements, rest is horizontal/vertical(e.g cost of 1)
+    // multiplied by 14 and 10 in order to get rid of the decimal places
     public static int GetDistance(Cell _a, Cell _b)
     {
         int dstX = Mathf.Abs(_a.X - _b.X);
@@ -30,6 +33,11 @@ public static class Helper
         //    straigth = (dx - dy) * 10;
         //}
         //return straigth + diagonal;
+    }
+    
+    public static void GetDistance1()
+    {
+        
     }
 
     public static List<Cell> RetracePath(Cell _start, Cell _end)
