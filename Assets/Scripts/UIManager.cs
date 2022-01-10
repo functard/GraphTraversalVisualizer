@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject m_ShowDistanceCostButton;
     [SerializeField] private GameObject m_ShowParentButton;
     [SerializeField] private GameObject m_GenerateNoiseGridButton;
-    [SerializeField] private GameObject m_AnimationSpeedSlider;
+    [SerializeField] private Slider m_AnimationSpeedSlider;
 
     /// <summary>
     /// Activates or deactivates all of the buttons nessecary for the RESIZING state
@@ -28,7 +29,7 @@ public class UIManager : MonoBehaviour
         m_RestartButton.SetActive(false);
         m_ShowParentButton.SetActive(false);
         m_ShowDistanceCostButton.SetActive(false);
-        m_AnimationSpeedSlider.SetActive(false);
+        m_AnimationSpeedSlider.gameObject.SetActive(false);
         m_GenerateNoiseGridButton.SetActive(false);
     }
 
@@ -45,7 +46,7 @@ public class UIManager : MonoBehaviour
         m_RestartButton.SetActive(true);
         m_ShowParentButton.SetActive(false);
         m_ShowDistanceCostButton.SetActive(false);
-        m_AnimationSpeedSlider.SetActive(false);
+        m_AnimationSpeedSlider.gameObject.SetActive(false);
         m_GenerateNoiseGridButton.SetActive(true);
     }
 
@@ -59,8 +60,13 @@ public class UIManager : MonoBehaviour
         m_ShowParentButton.SetActive(true);
         m_ShowDistanceCostButton.SetActive(true);
         m_VisualizeButton.SetActive(false);
-        m_AnimationSpeedSlider.SetActive(true);
+        m_AnimationSpeedSlider.gameObject.SetActive(true);
         m_GenerateNoiseGridButton.SetActive(false);
+    }
+
+    public void HandleFinishedStateButtons()
+    {
+        m_AnimationSpeedSlider.interactable = false;
     }
 
     #region Button Functions
@@ -79,7 +85,6 @@ public class UIManager : MonoBehaviour
         AppManager.Instance.UpdateAppState(AppManager.AppStates.SIZE_SELECTION);
     }
     #endregion
-
 
     private void ActivateResizeButtons()
     {
@@ -108,7 +113,4 @@ public class UIManager : MonoBehaviour
             button.SetActive(false);
         }
     }
-
-
-
 }

@@ -12,7 +12,7 @@ public class VisualizerManager : MonoBehaviour
     [SerializeField] private LineRenderer m_LineRenderer;
 
     private bool m_ShowArrows = false;
-    private bool m_ShowCosts  = false;
+    private bool m_ShowCosts = false;
 
     //colors
     [SerializeField] private Color m_FrontierCellColor = Color.green;
@@ -190,6 +190,7 @@ public class VisualizerManager : MonoBehaviour
             i++;
         }
         m_LineRenderer.SetPositions(vertexPositions);
+        //AppManager.Instance.UpdateAppState(AppManager.AppStates.FINISHED);
     }
     #endregion
 

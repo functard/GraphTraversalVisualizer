@@ -34,6 +34,8 @@ public static class Helper
 
     public static List<Cell> RetracePath(Cell _start, Cell _end)
     {
+        //AppManager.Instance.UpdateAppState(AppManager.AppStates.FINISHED);
+        Debug.Log("finished");
         List<Cell> path = new List<Cell>();
         Cell curr = _end;
 

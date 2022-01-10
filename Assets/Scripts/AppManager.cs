@@ -48,6 +48,9 @@ public class AppManager : MonoBehaviour
                 m_UIManager.HandleRunningStateButtons();
                 m_VisualizerManager.StartPathFinder();
                 break;
+            //case AppStates.FINISHED:
+            //    m_UIManager.HandleFinishedStateButtons();
+            //    break;
             default:
                 break;
         }
