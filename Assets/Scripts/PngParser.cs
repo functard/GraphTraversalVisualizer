@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PngParser : MonoBehaviour
 {
-
-    public static CellGrid ParseToGrid(Texture2D _texture)
+    public static CellGrid ParseToGrid(Texture2D _texture, Color _wallColor, Color _walkableColor)
     {
         CellGrid grid = new CellGrid(_texture.width, _texture.height, null);
 
