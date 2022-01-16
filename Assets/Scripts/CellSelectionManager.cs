@@ -8,7 +8,7 @@ public class CellSelectionManager : MonoBehaviour
     [SerializeField] private Color m_WallCellColor = Color.black;
     [SerializeField] private Color m_GrassColor = Color.green;
     [SerializeField] private Color m_WaterColor = Color.blue;
-    [SerializeField] private Color m_MuddColor = Color.yellow;
+    [SerializeField] private Color m_MuddColor = new Color(123, 0, 0);
 
     private enum CellSelection { Default, Start, End, Wall, Grass, Mudd, Water }
 
@@ -111,10 +111,12 @@ public class CellSelectionManager : MonoBehaviour
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_GrassColor;
                     break;
                 case CellSelection.Water:
+                    Debug.Log("?");
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 5;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_WaterColor;
                     break;
                 case CellSelection.Mudd:
+                    Debug.Log("mydd");
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_MuddColor;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 7;
                     break;
@@ -159,6 +161,12 @@ public class CellSelectionManager : MonoBehaviour
     public void OnClick_GrassCellSelection()
     {
         m_CellSelection = CellSelection.Grass;
+    }
+
+    public void OnClick_MuddCellSelection()
+    {
+        m_CellSelection = CellSelection.Mudd;
+        Debug.Log(m_MuddColor);
     }
     #endregion
 }
