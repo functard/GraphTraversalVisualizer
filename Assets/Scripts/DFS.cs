@@ -13,13 +13,13 @@ public class DFS
         switch (_type)
         {
             case VisualizationSetting.EVisualizationType.DELAYED:
-                //CoroutineController.Start(FindPathWithDelay(_start, _end, _movementSettings, _grid));
+                CoroutineController.Start(FindPathWithDelay(_start, _end, _movementSettings, _grid));
                 break;
             case VisualizationSetting.EVisualizationType.INSTANT:
                 FindPathInstant(_start, _end, _movementSettings, _grid);
                 break;
             case VisualizationSetting.EVisualizationType.INPUT:
-                //CoroutineController.Start(FindPathWithInput(_start, _end, _movementSettings, _grid));
+                CoroutineController.Start(FindPathWithInput(_start, _end, _movementSettings, _grid));
                 break;
             default:
                 break;
@@ -67,12 +67,83 @@ public class DFS
     }
     private static IEnumerator FindPathWithDelay(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
     {
-        return null;
+        FrontierCells = new Stack<Cell>();
+        VisitedCells = new List<Cell>();
+        PathCells = new List<Cell>();
+
+        FrontierCells.Push(_start);
+        VisitedCells.Add(_start);
+        while (FrontierCells.Count > 0)
+        {
+            Cell curr = FrontierCells.Pop();
+            if (!VisitedCells.Contains(curr))
+                VisitedCells.Add(curr);
+
+
+            // for every neighbour
+            foreach (Cell neighbour in curr.GetNeighbours(_movementSettings, _grid))
+            {
+                // if not in visited list
+                if (!VisitedCells.Contains(neighbour)/* && !FrontierCells.Contains(neighbour)*/)
+                {
+                    // set parent node
+                    neighbour.Parent = curr;
+
+                    // add to frontier list
+                    FrontierCells.Push(neighbour);
+                }
+            }
+            // path found
+            if (FrontierCells.Contains(_end))
+            {
+                PathCells = Helper.RetracePath(_start, _end);
+                Debug.Log("done");
+                break;
+            }
+            yield return new WaitForSeconds(Helper.TimeStep);
+        }
     }
 
     private static IEnumerator FindPathWithInput(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
     {
-        return null;
+        FrontierCells = new Stack<Cell>();
+        VisitedCells = new List<Cell>();
+        PathCells = new List<Cell>();
+
+        FrontierCells.Push(_start);
+        VisitedCells.Add(_start);
+        while (FrontierCells.Count > 0)
+        {
+            Cell curr = FrontierCells.Pop();
+            if (!VisitedCells.Contains(curr))
+                VisitedCells.Add(curr);
+
+
+            // for every neighbour
+            foreach (Cell neighbour in curr.GetNeighbours(_movementSettings, _grid))
+            {
+                // if not in visited list
+                if (!VisitedCells.Contains(neighbour)/* && !FrontierCells.Contains(neighbour)*/)
+                {
+                    // set parent node
+                    neighbour.Parent = curr;
+
+                    // add to frontier list
+                    FrontierCells.Push(neighbour);
+                }
+            }
+            // path found
+            if (FrontierCells.Contains(_end))
+            {
+                PathCells = Helper.RetracePath(_start, _end);
+                Debug.Log("done");
+                break;
+            }
+        }
+        while (!Input.GetKeyDown(KeyCode.Space))
+            yield return null;
+
+        yield return new WaitForSeconds(0.1f);
     }
 
 }
