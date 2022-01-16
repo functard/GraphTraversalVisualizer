@@ -39,98 +39,91 @@ public class CellSelectionManager : MonoBehaviour
 
     private void Update()
     {
-        switch (AppManager.Instance.AppState)
+        if (AppManager.Instance.AppState != AppManager.AppStates.CELL_SELECTION)
+            return;
+
+        // right mouse click
+        if (Input.GetKey(KeyCode.Mouse1))
         {
-            case AppManager.AppStates.SIZE_SELECTION:
-                break;
-            case AppManager.AppStates.CELL_SELECTION:
+            Vector3 mouseWorldPos = m_cam.ScreenToWorldPoint(Input.mousePosition);
+            int x = Mathf.RoundToInt(mouseWorldPos.x);
+            int y = Mathf.RoundToInt(mouseWorldPos.y);
 
-                // right mouse click
-                if (Input.GetKey(KeyCode.Mouse1))
-                {
-                    Vector3 mouseWorldPos = m_cam.ScreenToWorldPoint(Input.mousePosition);
-                    int x = Mathf.RoundToInt(mouseWorldPos.x);
-                    int y = Mathf.RoundToInt(mouseWorldPos.y);
+            // bounds check
+            if (x < -0.5f || x > m_GridManager.Grid.Width - 0.5f ||
+                y < -0.5f || y > m_GridManager.Grid.Height - 0.5f)
+                return;
 
-                    // bounds check
-                    if (x < -0.5f || x > m_GridManager.Grid.Width - 0.5f ||
-                        y < -0.5f || y > m_GridManager.Grid.Height - 0.5f)
-                        return;
-
-                    // check if clicked on start or ending node position
-                    if (new Vector2(x, y) == m_StartPos || new Vector2(x, y) == m_EndPos)
-                        return;
+            // check if clicked on start or ending node position
+            if (new Vector2(x, y) == m_StartPos || new Vector2(x, y) == m_EndPos)
+                return;
 
 
-                    // reset weight
+            // reset weight
+            m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 0;
+            //m_GridManager.Grid.GetNodeAtPosition(m_StartPos).SpriteRenderer.sprite = m_DefaultImage;
+
+            switch (m_CellSelection)
+            {
+                case CellSelection.Default:
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = true;
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = Color.white;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 0;
-                    //m_GridManager.Grid.GetNodeAtPosition(m_StartPos).SpriteRenderer.sprite = m_DefaultImage;
 
-                    switch (m_CellSelection)
-                    {
-                        case CellSelection.Default:
-                            m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = true;
-                            m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = Color.white;
-                            m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 0;
+                    break;
+                // start cell selection
+                case CellSelection.Start:
+                    // reset old selection
+                    m_GridManager.Grid.GetNodeAtPosition(m_StartPos).SpriteRenderer.sprite = m_DefaultImage;
 
-                            break;
-                        // start cell selection
-                        case CellSelection.Start:
-                            // reset old selection
-                            m_GridManager.Grid.GetNodeAtPosition(m_StartPos).SpriteRenderer.sprite = m_DefaultImage;
+                    // update new selection
+                    m_StartPos.x = x;
+                    m_StartPos.y = y;
+                    m_GridManager.Grid.GetNodeAtPosition(m_StartPos).SpriteRenderer.sprite = m_StartCellImage;
 
-                            // update new selection
-                            m_StartPos.x = x;
-                            m_StartPos.y = y;
-                            m_GridManager.Grid.GetNodeAtPosition(m_StartPos).SpriteRenderer.sprite = m_StartCellImage;
+                    // Make the cell walkable in case the wall was replaced by start cell
+                    m_GridManager.Grid.GetNodeAtPosition(m_StartPos).Walkable = true;
+                    break;
 
-                            // Make the cell walkable in case the wall was replaced by start cell
-                            m_GridManager.Grid.GetNodeAtPosition(m_StartPos).Walkable = true;
-                            break;
+                // end cell selection 
+                case CellSelection.End:
+                    // reset old selection
+                    m_GridManager.Grid.GetNodeAtPosition(m_EndPos).SpriteRenderer.sprite = m_DefaultImage;
 
-                        // end cell selection 
-                        case CellSelection.End:
-                            // reset old selection
-                            m_GridManager.Grid.GetNodeAtPosition(m_EndPos).SpriteRenderer.sprite = m_DefaultImage;
+                    // update new selection
+                    m_EndPos.x = x;
+                    m_EndPos.y = y;
+                    m_GridManager.Grid.GetNodeAtPosition(m_EndPos).SpriteRenderer.sprite = m_EndCellImage;
 
-                            // update new selection
-                            m_EndPos.x = x;
-                            m_EndPos.y = y;
-                            m_GridManager.Grid.GetNodeAtPosition(m_EndPos).SpriteRenderer.sprite = m_EndCellImage;
+                    // Make the cell walkable in case the wall was replaced by end cell
+                    m_GridManager.Grid.GetNodeAtPosition(m_EndPos).Walkable = true;
+                    break;
 
-                            // Make the cell walkable in case the wall was replaced by end cell
-                            m_GridManager.Grid.GetNodeAtPosition(m_EndPos).Walkable = true;
-                            break;
+                // wall cell selection
+                case CellSelection.Wall:
 
-                        // wall cell selection
-                        case CellSelection.Wall:
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = false;
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_WallCellColor;
+                    break;
 
-                            m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = false;
-                            m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_WallCellColor;
-                            break;
+                case CellSelection.Grass:
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 3;
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_GrassColor;
+                    break;
+                case CellSelection.Water:
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 5;
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_WaterColor;
+                    break;
+                case CellSelection.Mudd:
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_MuddColor;
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 7;
+                    break;
+                default:
+                    break;
+            }
 
-                        case CellSelection.Grass:
-                            m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 3;
-                            m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_GrassColor;
-                            break;
-                        case CellSelection.Water:
-                            m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 5;
-                            m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_WaterColor;
-                            break;
-                        case CellSelection.Mudd:
-                            m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_MuddColor;
-                            m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 7;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                break;
-            case AppManager.AppStates.RUNNING:
-                break;
-            default:
-                break;
         }
+
     }
 
     public Vector2Int GetStartCellPos()

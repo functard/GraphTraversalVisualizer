@@ -46,6 +46,11 @@ public class VisualizerManager : MonoBehaviour
                 ShowDistanceCosts(DFS.FrontierCells);
                 ShowDistanceCosts(DFS.VisitedCells);
                 break;
+            case VisualizationSetting.EAlgorihmType.GREEDYBEST:
+                PaintCells(GreedyBestFirstSearch.FrontierCells.ToList(), GreedyBestFirstSearch.VisitedCells, GreedyBestFirstSearch.PathCells);
+                ShowDistanceCosts(GreedyBestFirstSearch.FrontierCells.ToList());
+                ShowDistanceCosts(GreedyBestFirstSearch.VisitedCells);
+                break;
             default:
                 break;
         }
@@ -72,6 +77,11 @@ public class VisualizerManager : MonoBehaviour
                 break;
             case VisualizationSetting.EAlgorihmType.DFS:
                 DFS.FindPath(m_GridManager.Grid.GetNodeAtPosition(m_CellManager.GetStartCellPos()),
+                m_GridManager.Grid.GetNodeAtPosition(m_CellManager.GetEndCellPos()),
+                m_VisualizationSettings.MovementType, m_GridManager.Grid, m_VisualizationSettings.VisualizationType);
+                break;
+            case VisualizationSetting.EAlgorihmType.GREEDYBEST:
+                GreedyBestFirstSearch.FindPath(m_GridManager.Grid.GetNodeAtPosition(m_CellManager.GetStartCellPos()),
                 m_GridManager.Grid.GetNodeAtPosition(m_CellManager.GetEndCellPos()),
                 m_VisualizationSettings.MovementType, m_GridManager.Grid, m_VisualizationSettings.VisualizationType);
                 break;

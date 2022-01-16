@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DFS
+public static class DFS
 {
     public static Stack<Cell> FrontierCells { get; private set; }
     public static List<Cell> VisitedCells { get; private set; }
@@ -144,6 +144,16 @@ public class DFS
             yield return null;
 
         yield return new WaitForSeconds(0.1f);
+    }
+
+    public static void Clear()
+    {
+        if (FrontierCells != null)
+            FrontierCells.Clear();
+        if (VisitedCells != null)
+            VisitedCells.Clear();
+        if (PathCells != null)
+            PathCells.Clear();
     }
 
 }

@@ -7,7 +7,7 @@ public enum EMovementSettings { Diagonal, NoDiagonal, DontCrossCorners }
 public class VisualizationSetting : MonoBehaviour
 {
     public enum EHeuristics { EUCLIDIAN, MANHATTAN, OCTILE }
-    public enum EAlgorihmType { ASTAR, DIJKSTRA, BFS, DFS }
+    public enum EAlgorihmType { ASTAR, DIJKSTRA, BFS, DFS, GREEDYBEST }
     public enum EVisualizationType { DELAYED,INSTANT,INPUT }
 
     public EHeuristics HeuristicType = EHeuristics.EUCLIDIAN;
@@ -27,7 +27,6 @@ public class VisualizationSetting : MonoBehaviour
     public void OnValueChange_SetAlgorithmType(int _i)
     {
         AlgorithmType = (EAlgorihmType)_i;
-        Debug.Log(AlgorithmType);
     }
     public void OnValueChange_SetVisualizationType(int _i)
     {

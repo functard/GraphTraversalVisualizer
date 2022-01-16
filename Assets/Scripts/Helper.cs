@@ -4,6 +4,7 @@ using UnityEngine;
 public static class Helper
 {
     public static float TimeStep = 0.25f;
+
     
     // 1.4 * min(dx,dy) + dx - dy
     // min of dx-dy gives the needed diagonal movements, rest is horizontal/vertical(e.g cost of 1)
@@ -42,8 +43,6 @@ public static class Helper
 
     public static List<Cell> RetracePath(Cell _start, Cell _end)
     {
-        //AppManager.Instance.UpdateAppState(AppManager.AppStates.FINISHED);
-        Debug.Log("finished");
         List<Cell> path = new List<Cell>();
         Cell curr = _end;
 
@@ -59,8 +58,10 @@ public static class Helper
 
     public static void ClearAlgorithms()
     {
+        DFS.Clear();
         BFS.Clear();
         Astar.Clear();
         Dijkstra.Clear();
+        GreedyBestFirstSearch.Clear();
     }
 }

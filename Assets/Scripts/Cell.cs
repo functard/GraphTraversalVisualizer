@@ -117,6 +117,8 @@ public class Cell : IComparable<Cell>
 
                 return neighbours;
             case EMovementSettings.Diagonal:
+                // starts with vertical/horizontal, otherwise weigthless algorithms looks off
+
                 //for (int w = -1; w <= 1; w += 2)
                 //{
                 //    int checkX = w + X;
@@ -133,17 +135,17 @@ public class Cell : IComparable<Cell>
                 //        neighbours.Add(_grid.GetNodeAtPosition(X, checkY));
                 //}
 
-                //if (X - 1 > 0 && Y + 1 < _grid.Height)
-                //    neighbours.Add(_grid.GetNodeAtPosition(X - 1, Y + 1));
+                ////if (X - 1 > 0 && Y + 1 < _grid.Height)
+                ////    neighbours.Add(_grid.GetNodeAtPosition(X - 1, Y + 1));
 
-                //if (X - 1 > 0 && Y - 1 > 0)
-                //    neighbours.Add(_grid.GetNodeAtPosition(X - 1, Y - 1));
+                ////if (X - 1 > 0 && Y - 1 > 0)
+                ////    neighbours.Add(_grid.GetNodeAtPosition(X - 1, Y - 1));
 
-                //if (X + 1 < _grid.Width && Y + 1 < _grid.Height)
-                //    neighbours.Add(_grid.GetNodeAtPosition(X + 1, Y + 1));
+                ////if (X + 1 < _grid.Width && Y + 1 < _grid.Height)
+                ////    neighbours.Add(_grid.GetNodeAtPosition(X + 1, Y + 1));
 
-                //if (X + 1 > 0 && Y - 1 > 0)
-                //    neighbours.Add(_grid.GetNodeAtPosition(X + 1, Y - 1));
+                ////if (X + 1 > 0 && Y - 1 > 0)
+                ////    neighbours.Add(_grid.GetNodeAtPosition(X + 1, Y - 1));
 
                 for (int w = -1; w <= 1; w++)
                 {
@@ -162,6 +164,7 @@ public class Cell : IComparable<Cell>
                         }
                     }
                 }
+
                 return neighbours;
             case EMovementSettings.DontCrossCorners:
                 for (int w = -1; w <= 1; w++)
@@ -209,13 +212,6 @@ public class Cell : IComparable<Cell>
                 // compare the h values
                 return H.CompareTo(other.H);
             }
-            int compare = F.CompareTo(other.F);
-
-            if (compare == 0)
-            {
-                compare = H.CompareTo(other.H);
-            }
-            return compare;
 
         }
         //Dijkstra
