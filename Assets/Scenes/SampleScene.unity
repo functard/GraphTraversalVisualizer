@@ -6493,6 +6493,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: BFS
       m_Image: {fileID: 0}
+    - m_Text: DFS
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -8726,7 +8728,7 @@ MonoBehaviour:
   m_ShowDistanceCostButton: {fileID: 936533771}
   m_ShowParentButton: {fileID: 566566276}
   m_GenerateNoiseGridButton: {fileID: 1105991194}
-  m_AnimationSpeedSlider: {fileID: 649421329}
+  m_AnimationSpeedSlider: {fileID: 649421331}
 --- !u!4 &1931934955
 Transform:
   m_ObjectHideFlags: 0

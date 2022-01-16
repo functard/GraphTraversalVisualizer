@@ -41,6 +41,11 @@ public class VisualizerManager : MonoBehaviour
                 ShowDistanceCosts(Astar.OpenList.ToList());
                 ShowDistanceCosts(Astar.ClosedList);
                 break;
+            case VisualizationSetting.EAlgorihmType.DFS:
+                PaintCells(DFS.FrontierCells, DFS.VisitedCells, DFS.PathCells);
+                ShowDistanceCosts(DFS.FrontierCells);
+                ShowDistanceCosts(DFS.VisitedCells);
+                break;
             default:
                 break;
         }
@@ -62,6 +67,11 @@ public class VisualizerManager : MonoBehaviour
                 break;
             case VisualizationSetting.EAlgorihmType.ASTAR:
                 Astar.FindPath(m_GridManager.Grid.GetNodeAtPosition(m_CellManager.GetStartCellPos()),
+                m_GridManager.Grid.GetNodeAtPosition(m_CellManager.GetEndCellPos()),
+                m_VisualizationSettings.MovementType, m_GridManager.Grid, m_VisualizationSettings.VisualizationType);
+                break;
+            case VisualizationSetting.EAlgorihmType.DFS:
+                DFS.FindPath(m_GridManager.Grid.GetNodeAtPosition(m_CellManager.GetStartCellPos()),
                 m_GridManager.Grid.GetNodeAtPosition(m_CellManager.GetEndCellPos()),
                 m_VisualizationSettings.MovementType, m_GridManager.Grid, m_VisualizationSettings.VisualizationType);
                 break;
