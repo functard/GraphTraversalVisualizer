@@ -237,6 +237,7 @@ public class Cell : IComparable<Cell>
             }
 
         }
+
         //Dijkstra
         if (Priority < other.Priority)
             return -1;

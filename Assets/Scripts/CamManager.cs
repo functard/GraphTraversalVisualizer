@@ -27,8 +27,12 @@ public class CamManager : MonoBehaviour
     public void Init()
     {
         m_Cam = Camera.main;
-        float width = (m_Cam.ViewportToWorldPoint(new Vector3(1, 0)) - Camera.main.ViewportToWorldPoint(new Vector3(0, 0))).magnitude;
-        float heigth = (m_Cam.ViewportToWorldPoint(new Vector3(0, 1)) - Camera.main.ViewportToWorldPoint(new Vector3(0, 0))).magnitude - 1;
+        float width  = (m_Cam.ViewportToWorldPoint(new Vector3(1, 0))
+                     - Camera.main.ViewportToWorldPoint(new Vector3(0, 0))).magnitude;
+
+        float heigth = (m_Cam.ViewportToWorldPoint(new Vector3(0, 1)) 
+                     - Camera.main.ViewportToWorldPoint(new Vector3(0, 0))).magnitude 
+                     - (m_Cam.orthographicSize / 3.5f);
 
         // Initialize the template grid
         m_GridManager.InitTemplateGrid(Mathf.FloorToInt(width), Mathf.CeilToInt(heigth));
@@ -108,9 +112,12 @@ public class CamManager : MonoBehaviour
         m_Cam.orthographicSize = Mathf.FloorToInt(_index);
 
         // calcuate the width and height of viewport in world space (with y offset for fitting UI buttons)
-        float width = (m_Cam.ViewportToWorldPoint(new Vector3(1, 0)) - Camera.main.ViewportToWorldPoint(new Vector3(0, 0))).magnitude;
-        float heigth = (m_Cam.ViewportToWorldPoint(new Vector3(0, 1)) - Camera.main.ViewportToWorldPoint(new Vector3(0, 0))).magnitude
-                     - (m_Cam.orthographicSize / 5); // scale the offset based on camera size
+        float width  = (m_Cam.ViewportToWorldPoint(new Vector3(1, 0))
+                     - Camera.main.ViewportToWorldPoint(new Vector3(0, 0))).magnitude;
+
+        float heigth = (m_Cam.ViewportToWorldPoint(new Vector3(0, 1))
+                     - Camera.main.ViewportToWorldPoint(new Vector3(0, 0))).magnitude
+                     - (m_Cam.orthographicSize / 3.5f); // scale the offset based on camera size
 
         // resize the grid
         m_GridManager.TemplateGrid.UpdateGrid((int)width, Mathf.CeilToInt(heigth));
