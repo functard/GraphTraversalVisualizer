@@ -225,7 +225,6 @@ public class Cell : IComparable<Cell>
         // Astar ? TODO: use a nullable type and check for null
         if (DistTraveled == -1 && other.DistTraveled == -1)
         {
-            Debug.Log("astar");
             if (F < other.F)
                 return -1;
             else if (other.F < F)
@@ -238,7 +237,6 @@ public class Cell : IComparable<Cell>
             }
 
         }
-        Debug.Log("other");
         //Dijkstra
         if (Priority < other.Priority)
             return -1;

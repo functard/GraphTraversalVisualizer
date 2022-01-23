@@ -105,14 +105,17 @@ public class CellSelectionManager : MonoBehaviour
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_WallCellColor;
                     break;
                 case CellSelection.Grass:
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = true;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 3;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_GrassColor;
                     break;
                 case CellSelection.Water:
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = true;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 5;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_WaterColor;
                     break;
                 case CellSelection.Mudd:
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = true;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_MuddColor;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 7;
                     break;
