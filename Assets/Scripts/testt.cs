@@ -10,10 +10,10 @@ public class testt : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Cell c = gms.Grid.GetNodeAtPosition(0, 0);
-            foreach (var item in c.GetNeighbours(EMovementSettings.Diagonal,gms.Grid))
+            foreach (var item in gms.Grid.ToList())
             {
-                item.SpriteRenderer.color = Color.cyan;
+                //Debug.Log("F cost : " + item.F);
+                Debug.Log("Disttraveled : " + item.DistTraveled);
             }
         }
 

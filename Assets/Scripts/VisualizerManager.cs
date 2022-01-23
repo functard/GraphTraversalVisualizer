@@ -149,6 +149,13 @@ public class VisualizerManager : MonoBehaviour
             }
         }
 
+        else if(m_VisualizationSettings.AlgorithmType == VisualizationSetting.EAlgorihmType.GREEDYBEST)
+        {
+            foreach (Cell cell in _cells)
+            {
+                cell.DistTraveledText.text = cell.DistTraveled.ToString();
+            }
+        }
         // clear starting node distance cost texts 
         m_GridManager.Grid.GetNodeAtPosition(m_CellManager.GetStartCellPos()).GCostText.text = "";
         m_GridManager.Grid.GetNodeAtPosition(m_CellManager.GetStartCellPos()).HCostText.text = "";
@@ -217,6 +224,11 @@ public class VisualizerManager : MonoBehaviour
 
     #region Button Functions
 
+    public void OnClick_GenerateNoiseMap()
+    {
+        OnClick_ClearGrid();    
+        NoiseMapGenerator.GenerateMap(m_GridManager.Grid);
+    }
     public void OnClick_ClearGrid()
     {
         ClearParentArrows();

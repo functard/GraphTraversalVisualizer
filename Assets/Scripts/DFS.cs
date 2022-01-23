@@ -28,7 +28,6 @@ public static class DFS
 
     private static void FindPathInstant(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
     {
-        Debug.Log("started");
         FrontierCells = new Stack<Cell>();
         VisitedCells = new List<Cell>();
         PathCells = new List<Cell>();
@@ -59,7 +58,6 @@ public static class DFS
             if (FrontierCells.Contains(_end))
             {
                 PathCells = Helper.RetracePath(_start, _end);
-                Debug.Log("done");
                 break;
             }
         }

@@ -42,6 +42,17 @@ public class Cell : IComparable<Cell>
     public TextMeshPro DistTraveledText;
 
     private Sprite m_DefaultSprite;
+    private Vector2Int[] m_NeighborDirections = new Vector2Int[]
+    {
+        new Vector2Int( 1, 0),
+        new Vector2Int(-1, 0),
+        new Vector2Int( 0, 1),
+        new Vector2Int( 0,-1),
+        new Vector2Int( 1, 1),
+        new Vector2Int( 1,-1),
+        new Vector2Int(-1, 1),
+        new Vector2Int(-1,-1)
+    };
 
     public Cell(int _x, int _y, GameObject _prefab)
     {
@@ -84,7 +95,6 @@ public class Cell : IComparable<Cell>
             FCostText = costTexts[2];
             DistTraveledText = costTexts[3];
         }
-
         SpriteRenderer = Prefab.GetComponent<SpriteRenderer>();
         m_DefaultSprite = SpriteRenderer.sprite;
 #if UNITY_EDITOR
@@ -117,8 +127,21 @@ public class Cell : IComparable<Cell>
 
                 return neighbours;
             case EMovementSettings.Diagonal:
-                // starts with vertical/horizontal, otherwise weigthless algorithms looks off
 
+                //TODO: start with vertical/horizontal, otherwise weigthless algorithms looks off
+
+                //for (int i = 0; i < 8; i++)
+                //{
+                //    int checkX = m_NeighborDirections[i].x + X;
+                //    int checkY = m_NeighborDirections[i].y + Y;
+
+                //    if (checkX >= 0 && checkX < _grid.Width &&
+                //        checkY >= 0 && checkY < _grid.Height &&
+                //        _grid.GetNodeAtPosition(checkX, checkY).Walkable)
+                //    {
+                //        neighbours.Add(_grid.GetNodeAtPosition(checkX, checkY));
+                //    }
+                //}
                 //for (int w = -1; w <= 1; w += 2)
                 //{
                 //    int checkX = w + X;
@@ -202,6 +225,7 @@ public class Cell : IComparable<Cell>
         // Astar ? TODO: use a nullable type and check for null
         if (DistTraveled == -1 && other.DistTraveled == -1)
         {
+            Debug.Log("astar");
             if (F < other.F)
                 return -1;
             else if (other.F < F)
@@ -214,6 +238,7 @@ public class Cell : IComparable<Cell>
             }
 
         }
+        Debug.Log("other");
         //Dijkstra
         if (Priority < other.Priority)
             return -1;

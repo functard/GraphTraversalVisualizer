@@ -101,31 +101,25 @@ public class CellSelectionManager : MonoBehaviour
 
                 // wall cell selection
                 case CellSelection.Wall:
-
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = false;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_WallCellColor;
                     break;
-
                 case CellSelection.Grass:
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 3;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_GrassColor;
                     break;
                 case CellSelection.Water:
-                    Debug.Log("?");
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 5;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_WaterColor;
                     break;
                 case CellSelection.Mudd:
-                    Debug.Log("mydd");
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_MuddColor;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 7;
                     break;
                 default:
                     break;
             }
-
         }
-
     }
 
     public Vector2Int GetStartCellPos()
@@ -166,7 +160,6 @@ public class CellSelectionManager : MonoBehaviour
     public void OnClick_MuddCellSelection()
     {
         m_CellSelection = CellSelection.Mudd;
-        Debug.Log(m_MuddColor);
     }
     #endregion
 }

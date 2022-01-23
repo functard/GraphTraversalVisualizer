@@ -36,9 +36,4 @@ public class GridManager : MonoBehaviour
         m_TemplateGrid.Destroy();
         m_Grid = new CellGrid(m_TemplateGrid.Width, m_TemplateGrid.Height, m_GridPrefab);
     }
-
-    public void OnClick_GenerateNoiseMap()
-    {
-        NoiseMapGenerator.GenerateMap(m_Grid);
-    }
 }

@@ -32,8 +32,7 @@ public class NoiseMapGenerator : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("bro mud0");
-                    _grid.GetNodeAtPosition(w, h).SpriteRenderer.color = new Color(180, 0, 13,255);
+                    _grid.GetNodeAtPosition(w, h).SpriteRenderer.color = new Color(0.708f, 0f, 0.053f, 1);
                     _grid.GetNodeAtPosition(w, h).Weigth = 7;
                 }
             }
