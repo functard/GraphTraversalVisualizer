@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class NoiseMapGenerator : MonoBehaviour
 {
@@ -23,17 +21,17 @@ public class NoiseMapGenerator : MonoBehaviour
                 else if (noise[w, h] < 0.5f)
                 {
                     _grid.GetNodeAtPosition(w, h).SpriteRenderer.color = Color.green;
-                    _grid.GetNodeAtPosition(w, h).Weigth = 3;
+                    _grid.GetNodeAtPosition(w, h).Weigth = 4;
                 }
                 else if (noise[w, h] < 0.75f)
                 {
                     _grid.GetNodeAtPosition(w, h).SpriteRenderer.color = Color.blue;
-                    _grid.GetNodeAtPosition(w, h).Weigth = 5;
+                    _grid.GetNodeAtPosition(w, h).Weigth = 9;
                 }
                 else
                 {
                     _grid.GetNodeAtPosition(w, h).SpriteRenderer.color = new Color(0.708f, 0f, 0.053f, 1);
-                    _grid.GetNodeAtPosition(w, h).Weigth = 7;
+                    _grid.GetNodeAtPosition(w, h).Weigth = 14;
                 }
             }
         }

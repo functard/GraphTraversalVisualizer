@@ -8,39 +8,37 @@ public class Dijkstra : MonoBehaviour
     public static List<Cell> VisitedCells { get; private set; }
 
     public static List<Cell> PathCells { get; private set; }
-
-    public static void FindPath(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid, VisualizationSetting.EVisualizationType _type)
+    public static void FindPath(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                                VisualizationSetting.EVisualizationType _type, VisualizationSetting.EHeuristics _heuristic)
     {
         switch (_type)
         {
             case VisualizationSetting.EVisualizationType.DELAYED:
-                CoroutineController.Start(FindPathWithDelay(_start, _end, _movementSettings, _grid));
+                CoroutineController.Start(FindPathWithDelay(_start, _end, _movementSettings, _grid, _heuristic));
                 break;
             case VisualizationSetting.EVisualizationType.INSTANT:
-                FindPathInstant(_start, _end, _movementSettings, _grid);
+                FindPathInstant(_start, _end, _movementSettings, _grid, _heuristic);
                 break;
             case VisualizationSetting.EVisualizationType.INPUT:
-                CoroutineController.Start(FindPathWithInput(_start, _end, _movementSettings, _grid));
+                CoroutineController.Start(FindPathWithInput(_start, _end, _movementSettings, _grid, _heuristic));
                 break;
             default:
                 break;
         }
     }
-    public static void FindPathInstant(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
+    public static void FindPathInstant(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                                                                        VisualizationSetting.EHeuristics _heuristic)
     {
+        DiagnosticManager.Start();
         FrontierCells = new PriorityQueue<Cell>();
         VisitedCells = new List<Cell>();
-
-        int iterationCount = 0;
-        float time = Time.realtimeSinceStartup;
 
         FrontierCells.Enqueue(_start);
         _start.DistTraveled = 0;
 
         while (FrontierCells.Count() > 0)
         {
-            iterationCount++;
-
+            DiagnosticManager.Record();
             Cell curr = FrontierCells.Dequeue();
 
             // add to explored list
@@ -58,7 +56,7 @@ public class Dijkstra : MonoBehaviour
                 // if not in any of the lists
                 if (!VisitedCells.Contains(neighbour))
                 {
-                    int newDistTraveled = Helper.GetDistance(curr, neighbour) + curr.DistTraveled + neighbour.Weigth;
+                    int newDistTraveled = Heuristics.Heuristic(curr, neighbour, _heuristic) + curr.DistTraveled + neighbour.Weigth;
 
                     // if Distance not updated or new distance is better
                     if (neighbour.DistTraveled == -1 || newDistTraveled < neighbour.DistTraveled)
@@ -74,22 +72,22 @@ public class Dijkstra : MonoBehaviour
                 }
             }
         }
-        Debug.Log(Time.realtimeSinceStartup - time);
+        DiagnosticManager.Stop();
     }
 
-    public static IEnumerator FindPathWithDelay(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
+    public static IEnumerator FindPathWithDelay(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                                                                                VisualizationSetting.EHeuristics _heuristic)
     {
+        DiagnosticManager.Start();
         FrontierCells = new PriorityQueue<Cell>();
         VisitedCells = new List<Cell>();
+        PathCells = new List<Cell>();
 
-        int iterationCount = 0;
-        float time = Time.realtimeSinceStartup;
         FrontierCells.Enqueue(_start);
         _start.DistTraveled = 0;
         while (FrontierCells.Count() > 0)
         {
-            iterationCount++;
-
+            DiagnosticManager.Record();
             Cell curr = FrontierCells.Dequeue();
 
             // add to explored list
@@ -107,7 +105,7 @@ public class Dijkstra : MonoBehaviour
                 // if not in any of the lists
                 if (!VisitedCells.Contains(neighbour))
                 {
-                    int newDistTraveled = Helper.GetDistance(curr, neighbour) + curr.DistTraveled + neighbour.Weigth;
+                    int newDistTraveled = Heuristics.Heuristic(curr, neighbour, _heuristic) + curr.DistTraveled + neighbour.Weigth;
                     // if Distance not updated or new distance is better
                     if (neighbour.DistTraveled == -1 || newDistTraveled < neighbour.DistTraveled)
                     {
@@ -123,21 +121,21 @@ public class Dijkstra : MonoBehaviour
             }
             yield return new WaitForSeconds(Helper.TimeStep);
         }
+        DiagnosticManager.Stop();
     }
 
-    public static IEnumerator FindPathWithInput(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
+    public static IEnumerator FindPathWithInput(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                                                                                VisualizationSetting.EHeuristics _heuristic)
     {
+        DiagnosticManager.Start();
         FrontierCells = new PriorityQueue<Cell>();
         VisitedCells = new List<Cell>();
 
-        int iterationCount = 0;
-        float time = Time.realtimeSinceStartup;
         FrontierCells.Enqueue(_start);
         _start.DistTraveled = 0;
         while (FrontierCells.Count() > 0)
         {
-            iterationCount++;
-
+            DiagnosticManager.Record();
             Cell curr = FrontierCells.Dequeue();
 
             // add to explored list
@@ -155,7 +153,7 @@ public class Dijkstra : MonoBehaviour
                 // if not in any of the lists
                 if (!VisitedCells.Contains(neighbour))
                 {
-                    int newDistTraveled = Helper.GetDistance(curr, neighbour) + curr.DistTraveled + neighbour.Weigth;
+                    int newDistTraveled = Heuristics.Heuristic(curr, neighbour, _heuristic) + curr.DistTraveled + neighbour.Weigth;
 
                     // if Distance not updated or new distance is better
                     if (neighbour.DistTraveled == -1 || newDistTraveled < neighbour.DistTraveled)
@@ -175,7 +173,7 @@ public class Dijkstra : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
         }
-        Debug.Log(Time.realtimeSinceStartup - time);
+        DiagnosticManager.Stop();
     }
 
     public static void Clear()

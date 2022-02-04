@@ -63,12 +63,6 @@ public class UIManager : MonoBehaviour
         m_AnimationSpeedSlider.gameObject.SetActive(true);
         m_GenerateNoiseGridButton.SetActive(false);
     }
-
-    public void HandleFinishedStateButtons()
-    {
-        m_AnimationSpeedSlider.interactable = false;
-    }
-
     #region Button Functions
 
     public void OnClick_Visualize()

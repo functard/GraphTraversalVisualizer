@@ -11,19 +11,19 @@ namespace Tests
         {
             // bottom left
             CellGrid grid = new CellGrid(20, 20, null);
-            List<Cell> neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 0)).GetNeighbours(EMovementSettings.Diagonal, grid);
+            List<Cell> neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 0)).GetNeighbours(EMovementSettings.DIAGONAL, grid);
             Assert.AreEqual(3, neighbors.Count);
 
             // top right
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(19, 19)).GetNeighbours(EMovementSettings.Diagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(19, 19)).GetNeighbours(EMovementSettings.DIAGONAL, grid);
             Assert.AreEqual(3, neighbors.Count);
 
             // top left
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 19)).GetNeighbours(EMovementSettings.Diagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 19)).GetNeighbours(EMovementSettings.DIAGONAL, grid);
             Assert.AreEqual(3, neighbors.Count);
 
             // bottom right
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(19, 0)).GetNeighbours(EMovementSettings.Diagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(19, 0)).GetNeighbours(EMovementSettings.DIAGONAL, grid);
             Assert.AreEqual(3, neighbors.Count);
         }
 
@@ -32,19 +32,19 @@ namespace Tests
         {
             // bottom left
             CellGrid grid = new CellGrid(20, 20, null);
-            List<Cell> neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 0)).GetNeighbours(EMovementSettings.NoDiagonal, grid);
+            List<Cell> neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 0)).GetNeighbours(EMovementSettings.NO_DIAGONAL, grid);
             Assert.AreEqual(2, neighbors.Count);
 
             // top right
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(19, 19)).GetNeighbours(EMovementSettings.NoDiagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(19, 19)).GetNeighbours(EMovementSettings.NO_DIAGONAL, grid);
             Assert.AreEqual(2, neighbors.Count);
 
             // top left
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 19)).GetNeighbours(EMovementSettings.NoDiagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 19)).GetNeighbours(EMovementSettings.NO_DIAGONAL, grid);
             Assert.AreEqual(2, neighbors.Count);
 
             // bottom right
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(19, 0)).GetNeighbours(EMovementSettings.NoDiagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(19, 0)).GetNeighbours(EMovementSettings.NO_DIAGONAL, grid);
             Assert.AreEqual(2, neighbors.Count);
         }
 
@@ -53,19 +53,19 @@ namespace Tests
         {
             // bottom left
             CellGrid grid = new CellGrid(20, 20, null);
-            List<Cell> neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 0)).GetNeighbours(EMovementSettings.DontCrossCorners, grid);
+            List<Cell> neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 0)).GetNeighbours(EMovementSettings.DONT_CROSS_CORNERS, grid);
             Assert.AreEqual(3, neighbors.Count);
 
             // top right
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(19, 19)).GetNeighbours(EMovementSettings.DontCrossCorners, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(19, 19)).GetNeighbours(EMovementSettings.DONT_CROSS_CORNERS, grid);
             Assert.AreEqual(3, neighbors.Count);
 
             // top left
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 19)).GetNeighbours(EMovementSettings.DontCrossCorners, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 19)).GetNeighbours(EMovementSettings.DONT_CROSS_CORNERS, grid);
             Assert.AreEqual(3, neighbors.Count);
 
             // bottom right
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(19, 0)).GetNeighbours(EMovementSettings.DontCrossCorners, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(19, 0)).GetNeighbours(EMovementSettings.DONT_CROSS_CORNERS, grid);
             Assert.AreEqual(3, neighbors.Count);
         }
 
@@ -76,7 +76,7 @@ namespace Tests
             grid.GetNodeAtPosition(new Vector2Int(1, 1)).Walkable = false;
             grid.GetNodeAtPosition(new Vector2Int(0, 1)).Walkable = false;
 
-            List<Cell> neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 0)).GetNeighbours(EMovementSettings.Diagonal, grid);
+            List<Cell> neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 0)).GetNeighbours(EMovementSettings.DIAGONAL, grid);
             List<Cell> expected = new List<Cell>();
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(1, 0)));
             Assert.AreEqual(expected, neighbors);
@@ -96,7 +96,7 @@ namespace Tests
             grid.GetNodeAtPosition(new Vector2Int(5, 4)).Walkable = false;
             grid.GetNodeAtPosition(new Vector2Int(6, 4)).Walkable = false;
 
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.Diagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.DIAGONAL, grid);
             Assert.AreEqual(0, neighbors.Count);
 
             foreach (var item in grid.ToList())
@@ -113,7 +113,7 @@ namespace Tests
             grid.GetNodeAtPosition(new Vector2Int(4, 4)).Walkable = false;
 
 
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.Diagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.DIAGONAL, grid);
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(5, 6)));
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(5, 4)));
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(6, 5)));
@@ -135,7 +135,7 @@ namespace Tests
             grid.GetNodeAtPosition(new Vector2Int(4, 5)).Walkable = false;
 
 
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.Diagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.DIAGONAL, grid);
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(4, 6)));
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(6, 6)));
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(6, 4)));
@@ -160,7 +160,7 @@ namespace Tests
 
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(6, 4)));
 
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.Diagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.DIAGONAL, grid);
             Assert.AreEqual(expected, neighbors);
         }
 
@@ -172,7 +172,7 @@ namespace Tests
             grid.GetNodeAtPosition(new Vector2Int(1, 1)).Walkable = false;
             grid.GetNodeAtPosition(new Vector2Int(0, 1)).Walkable = false;
 
-            List<Cell> neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 0)).GetNeighbours(EMovementSettings.NoDiagonal, grid);
+            List<Cell> neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 0)).GetNeighbours(EMovementSettings.NO_DIAGONAL, grid);
             List<Cell> expected = new List<Cell>();
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(1, 0)));
             Assert.AreEqual(expected, neighbors);
@@ -192,7 +192,7 @@ namespace Tests
             grid.GetNodeAtPosition(new Vector2Int(5, 4)).Walkable = false;
             grid.GetNodeAtPosition(new Vector2Int(6, 4)).Walkable = false;
 
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.NoDiagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.NO_DIAGONAL, grid);
             Assert.AreEqual(0, neighbors.Count);
 
             foreach (var item in grid.ToList())
@@ -208,7 +208,7 @@ namespace Tests
             grid.GetNodeAtPosition(new Vector2Int(4, 4)).Walkable = false;
 
 
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.NoDiagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.NO_DIAGONAL, grid);
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(5, 6)));
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(5, 4)));
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(6, 5)));
@@ -229,7 +229,7 @@ namespace Tests
             grid.GetNodeAtPosition(new Vector2Int(4, 5)).Walkable = false;
 
 
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.NoDiagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.NO_DIAGONAL, grid);
             Assert.AreEqual(0, neighbors.Count);
         }
 
@@ -241,7 +241,7 @@ namespace Tests
             grid.GetNodeAtPosition(new Vector2Int(1, 1)).Walkable = false;
             grid.GetNodeAtPosition(new Vector2Int(0, 1)).Walkable = false;
 
-            List<Cell> neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 0)).GetNeighbours(EMovementSettings.DontCrossCorners, grid);
+            List<Cell> neighbors = grid.GetNodeAtPosition(new Vector2Int(0, 0)).GetNeighbours(EMovementSettings.DONT_CROSS_CORNERS, grid);
             List<Cell> expected = new List<Cell>();
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(1, 0)));
             Assert.AreEqual(expected, neighbors);
@@ -261,7 +261,7 @@ namespace Tests
             grid.GetNodeAtPosition(new Vector2Int(5, 4)).Walkable = false;
             grid.GetNodeAtPosition(new Vector2Int(6, 4)).Walkable = false;
 
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.DontCrossCorners, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.DONT_CROSS_CORNERS, grid);
             Assert.AreEqual(0, neighbors.Count);
 
             foreach (var item in grid.ToList())
@@ -277,7 +277,7 @@ namespace Tests
             grid.GetNodeAtPosition(new Vector2Int(4, 4)).Walkable = false;
 
 
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.DontCrossCorners, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.DONT_CROSS_CORNERS, grid);
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(5, 6)));
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(5, 4)));
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(6, 5)));
@@ -297,7 +297,7 @@ namespace Tests
             grid.GetNodeAtPosition(new Vector2Int(6, 5)).Walkable = false;
             grid.GetNodeAtPosition(new Vector2Int(4, 5)).Walkable = false;
 
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.Diagonal, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.DIAGONAL, grid);
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(4, 6)));
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(6, 6)));
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(6, 4)));
@@ -322,7 +322,7 @@ namespace Tests
 
             expected.Add(grid.GetNodeAtPosition(new Vector2Int(6, 4)));
 
-            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.DontCrossCorners, grid);
+            neighbors = grid.GetNodeAtPosition(new Vector2Int(5, 5)).GetNeighbours(EMovementSettings.DONT_CROSS_CORNERS, grid);
             Assert.AreEqual(0, neighbors.Count);
         }
     }

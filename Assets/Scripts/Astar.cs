@@ -8,25 +8,28 @@ public static class Astar
     public static List<Cell> ClosedList;
     public static List<Cell> PathCells;
 
-    public static void FindPath(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid, VisualizationSetting.EVisualizationType _type)
+    public static void FindPath(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                                VisualizationSetting.EVisualizationType _type, VisualizationSetting.EHeuristics _heuristic)
     {
         switch (_type)
         {
             case VisualizationSetting.EVisualizationType.DELAYED:
-                CoroutineController.Start(FindPathWithDelay(_start, _end, _movementSettings, _grid));
+                CoroutineController.Start(FindPathWithDelay(_start, _end, _movementSettings, _grid, _heuristic));
                 break;
             case VisualizationSetting.EVisualizationType.INSTANT:
-                FindPathInstant(_start, _end, _movementSettings, _grid);
+                FindPathInstant(_start, _end, _movementSettings, _grid, _heuristic);
                 break;
             case VisualizationSetting.EVisualizationType.INPUT:
-                CoroutineController.Start(FindPathWithInput(_start, _end, _movementSettings, _grid));
+                CoroutineController.Start(FindPathWithInput(_start, _end, _movementSettings, _grid, _heuristic));
                 break;
             default:
                 break;
         }
     }
-    private static void FindPathInstant(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
+    private static void FindPathInstant(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                                                                        VisualizationSetting.EHeuristics _heuristic)
     {
+        DiagnosticManager.Start();
         OpenList = new PriorityQueue<Cell>();
         ClosedList = new List<Cell>();
 
@@ -37,6 +40,8 @@ public static class Astar
 
         while (OpenList.Count() > 0)
         {
+            DiagnosticManager.Record();
+
             Cell curr = OpenList.Dequeue();
             ClosedList.Add(curr);
 
@@ -55,7 +60,7 @@ public static class Astar
                     if (newCostToNeighbour < neighbour.G || !OpenList.Contains(neighbour))
                     {
                         neighbour.G = newCostToNeighbour;
-                        neighbour.H = Helper.GetDistance(neighbour, _end);
+                        neighbour.H = Heuristics.Heuristic(neighbour, _end, _heuristic);
                         neighbour.Parent = curr;
                         neighbour.Priority = neighbour.F;
 
@@ -67,9 +72,13 @@ public static class Astar
                 }
             }
         }
+        DiagnosticManager.Stop();
     }
-    private static IEnumerator FindPathWithDelay(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
+    private static IEnumerator FindPathWithDelay(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                                                                                VisualizationSetting.EHeuristics _heuristic)
     {
+        DiagnosticManager.Start();
+
         OpenList = new PriorityQueue<Cell>();
         ClosedList = new List<Cell>();
 
@@ -77,6 +86,8 @@ public static class Astar
 
         while (OpenList.Count() > 0)
         {
+            DiagnosticManager.Record();
+
             Cell curr = OpenList.Dequeue();
             ClosedList.Add(curr);
 
@@ -95,7 +106,7 @@ public static class Astar
                     if (newCostToNeighbour < neighbour.G || !OpenList.Contains(neighbour))
                     {
                         neighbour.G = newCostToNeighbour;
-                        neighbour.H = Helper.GetDistance(neighbour, _end);
+                        neighbour.H = Heuristics.Heuristic(neighbour, _end, _heuristic);
                         neighbour.Parent = curr;
                         neighbour.Priority = neighbour.F;
 
@@ -108,9 +119,13 @@ public static class Astar
             }
             yield return new WaitForSeconds(Helper.TimeStep);
         }
+        DiagnosticManager.Stop();
     }
-    private static IEnumerator FindPathWithInput(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
+    private static IEnumerator FindPathWithInput(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid, 
+                                                                                VisualizationSetting.EHeuristics _heuristic)
     {
+        DiagnosticManager.Start();
+
         OpenList = new PriorityQueue<Cell>();
         ClosedList = new List<Cell>();
 
@@ -118,6 +133,7 @@ public static class Astar
 
         while (OpenList.Count() > 0)
         {
+            DiagnosticManager.Record();
             Cell curr = OpenList.Dequeue();
             ClosedList.Add(curr);
 
@@ -136,7 +152,7 @@ public static class Astar
                     if (tentativeScore < neighbour.G || !OpenList.Contains(neighbour))
                     {
                         neighbour.G = tentativeScore;
-                        neighbour.H = Helper.GetDistance(neighbour, _end);
+                        neighbour.H = Heuristics.Heuristic(neighbour, _end, _heuristic);
                         neighbour.Parent = curr;
 
                         if (!OpenList.Contains(neighbour))
@@ -151,6 +167,7 @@ public static class Astar
 
             yield return new WaitForSeconds(0.2f);
         }
+        DiagnosticManager.Stop();
     }
 
     public static void Clear()

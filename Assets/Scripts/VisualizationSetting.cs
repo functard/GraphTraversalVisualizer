@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public enum EMovementSettings { Diagonal, NoDiagonal, DontCrossCorners }
+public enum EMovementSettings { DIAGONAL, NO_DIAGONAL, DONT_CROSS_CORNERS }
 
 public class VisualizationSetting : MonoBehaviour
 {
     public enum EHeuristics { EUCLIDIAN, MANHATTAN, OCTILE }
-    public enum EAlgorihmType { ASTAR, DIJKSTRA, BFS, DFS, GREEDYBEST }
+    public enum EAlgorihmType { A_STAR, DIJKSTRA, BFS, DFS, GREEDY_BEST }
     public enum EVisualizationType { DELAYED,INSTANT,INPUT }
 
     public EHeuristics HeuristicType = EHeuristics.EUCLIDIAN;
-    public EAlgorihmType AlgorithmType = EAlgorihmType.ASTAR;
-    public EMovementSettings MovementType = EMovementSettings.Diagonal;
+    public EAlgorihmType AlgorithmType = EAlgorihmType.A_STAR;
+    public EMovementSettings MovementType = EMovementSettings.DIAGONAL;
     public EVisualizationType VisualizationType = EVisualizationType.DELAYED;
 
 

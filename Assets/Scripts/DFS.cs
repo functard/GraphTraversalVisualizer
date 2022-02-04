@@ -8,7 +8,8 @@ public static class DFS
     public static List<Cell> VisitedCells { get; private set; }
     public static List<Cell> PathCells { get; private set; }
 
-    public static void FindPath(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid, VisualizationSetting.EVisualizationType _type)
+    public static void FindPath(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                                                              VisualizationSetting.EVisualizationType _type)
     {
         switch (_type)
         {
@@ -28,6 +29,8 @@ public static class DFS
 
     private static void FindPathInstant(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
     {
+        DiagnosticManager.Start();
+
         FrontierCells = new Stack<Cell>();
         VisitedCells = new List<Cell>();
         PathCells = new List<Cell>();
@@ -36,6 +39,8 @@ public static class DFS
         VisitedCells.Add(_start);
         while (FrontierCells.Count > 0)
         {
+            DiagnosticManager.Record();
+
             Cell curr = FrontierCells.Pop();
             if (!VisitedCells.Contains(curr))
                 VisitedCells.Add(curr);
@@ -61,10 +66,13 @@ public static class DFS
                 break;
             }
         }
+        DiagnosticManager.Stop();
 
     }
     private static IEnumerator FindPathWithDelay(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
     {
+        DiagnosticManager.Start();
+
         FrontierCells = new Stack<Cell>();
         VisitedCells = new List<Cell>();
         PathCells = new List<Cell>();
@@ -73,6 +81,8 @@ public static class DFS
         VisitedCells.Add(_start);
         while (FrontierCells.Count > 0)
         {
+            DiagnosticManager.Record();
+
             Cell curr = FrontierCells.Pop();
             if (!VisitedCells.Contains(curr))
                 VisitedCells.Add(curr);
@@ -95,15 +105,17 @@ public static class DFS
             if (FrontierCells.Contains(_end))
             {
                 PathCells = Helper.RetracePath(_start, _end);
-                Debug.Log("done");
-                break;
+                yield break;
             }
             yield return new WaitForSeconds(Helper.TimeStep);
         }
+        DiagnosticManager.Stop();
     }
 
     private static IEnumerator FindPathWithInput(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
     {
+        DiagnosticManager.Start();
+
         FrontierCells = new Stack<Cell>();
         VisitedCells = new List<Cell>();
         PathCells = new List<Cell>();
@@ -112,6 +124,8 @@ public static class DFS
         VisitedCells.Add(_start);
         while (FrontierCells.Count > 0)
         {
+            DiagnosticManager.Record();
+
             Cell curr = FrontierCells.Pop();
             if (!VisitedCells.Contains(curr))
                 VisitedCells.Add(curr);
@@ -135,13 +149,14 @@ public static class DFS
             {
                 PathCells = Helper.RetracePath(_start, _end);
                 Debug.Log("done");
-                break;
+                yield break;
             }
-        }
-        while (!Input.GetKeyDown(KeyCode.Space))
-            yield return null;
+            while (!Input.GetKeyDown(KeyCode.Space))
+                yield return null;
 
-        yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.1f);
+        }
+        DiagnosticManager.Stop();
     }
 
     public static void Clear()

@@ -32,10 +32,10 @@ public class CamManager : MonoBehaviour
 
         float heigth = (m_Cam.ViewportToWorldPoint(new Vector3(0, 1)) 
                      - Camera.main.ViewportToWorldPoint(new Vector3(0, 0))).magnitude 
-                     - (m_Cam.orthographicSize / 3.5f);
+                     - (m_Cam.orthographicSize / 4.5f);
 
         // Initialize the template grid
-        m_GridManager.InitTemplateGrid(Mathf.FloorToInt(width), Mathf.CeilToInt(heigth));
+        m_GridManager.InitTemplateGrid(Mathf.FloorToInt(width), Mathf.FloorToInt(heigth));
         UpdateCameraPosition(width, heigth);
         InitZoomValues();
     }
@@ -84,7 +84,6 @@ public class CamManager : MonoBehaviour
                 m_CamPoses.Add(m_Cam.transform.position);
             }
         }
-
         //scroll down
         else if (mouseWheel < 0)
         {
@@ -102,8 +101,9 @@ public class CamManager : MonoBehaviour
     private void UpdateCameraPosition(float _width, float _heigth)
     {
         float camOffsetX = (_width - (int)_width) / 2f;
+        float camOffsetY = (_heigth - (int)_heigth) / 2f;
 
-        m_Cam.transform.position = new Vector3(_width / 2f - 0.5f - camOffsetX, _heigth / 2f - 0.5f, -10f);
+        m_Cam.transform.position = new Vector3(_width / 2f - 0.5f - camOffsetX, _heigth / 2f - 0.5f - camOffsetY, -10f);
     }
 
     public void OnSliderChange_Resize(float _index)
@@ -117,10 +117,10 @@ public class CamManager : MonoBehaviour
 
         float heigth = (m_Cam.ViewportToWorldPoint(new Vector3(0, 1))
                      - Camera.main.ViewportToWorldPoint(new Vector3(0, 0))).magnitude
-                     - (m_Cam.orthographicSize / 3.5f); // scale the offset based on camera size
+                     - (m_Cam.orthographicSize / 4.5f); // scale the offset based on camera size
 
         // resize the grid
-        m_GridManager.TemplateGrid.UpdateGrid((int)width, Mathf.CeilToInt(heigth));
+        m_GridManager.TemplateGrid.UpdateGrid((int)width, Mathf.FloorToInt(heigth));
 
         UpdateCameraPosition(width, heigth);
 

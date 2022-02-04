@@ -8,34 +8,41 @@ public static class GreedyBestFirstSearch
     public static List<Cell> VisitedCells { get; private set; }
     public static List<Cell> PathCells { get; private set; }
 
-    public static void FindPath(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid, VisualizationSetting.EVisualizationType _type)
+    public static void FindPath(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                VisualizationSetting.EVisualizationType _type, VisualizationSetting.EHeuristics _heuristic)
     {
         switch (_type)
         {
             case VisualizationSetting.EVisualizationType.DELAYED:
-                CoroutineController.Start(FindPathWithDelay(_start, _end, _movementSettings, _grid));
+                CoroutineController.Start(FindPathWithDelay(_start, _end, _movementSettings, _grid,_heuristic));
                 break;
             case VisualizationSetting.EVisualizationType.INSTANT:
-                FindPathInstant(_start, _end, _movementSettings, _grid);
+                FindPathInstant(_start, _end, _movementSettings, _grid, _heuristic);
                 break;
             case VisualizationSetting.EVisualizationType.INPUT:
-                CoroutineController.Start(FindPathWithInput(_start, _end, _movementSettings, _grid));
+                CoroutineController.Start(FindPathWithInput(_start, _end, _movementSettings, _grid, _heuristic));
                 break;
             default:
                 break;
         }
     }
 
-    private static void FindPathInstant(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
+    private static void FindPathInstant(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                                                                        VisualizationSetting.EHeuristics _heuristic)
     {
+        DiagnosticManager.Start();
+
         FrontierCells = new PriorityQueue<Cell>();
         VisitedCells = new List<Cell>();
         PathCells = new List<Cell>();
 
         FrontierCells.Enqueue(_start);
+        _start.DistTraveled = 0;
 
         while (FrontierCells.Count() > 0)
         {
+            DiagnosticManager.Record();
+
             Cell curr = FrontierCells.Dequeue();
             VisitedCells.Add(curr);
 
@@ -50,29 +57,39 @@ public static class GreedyBestFirstSearch
             {
                 if (!VisitedCells.Contains(neighbour))
                 {
-                    int dist = Helper.GetDistance(curr, neighbour);
-                    int newCost = dist + neighbour.DistTraveled + curr.Weigth;
-                    neighbour.DistTraveled = newCost;
-                    neighbour.Parent = curr;
+                    //int dist = Helper.GetDistance(curr, neighbour);
+                    int newCost = Helper.GetDistance(curr, neighbour) + curr.DistTraveled + neighbour.Weigth;
 
-                    neighbour.Priority = Helper.GetDistance(neighbour, _end);
+                    if (neighbour.DistTraveled == -1)
+                    {
+                        neighbour.DistTraveled = newCost;
+                        neighbour.Parent = curr;
 
-                    FrontierCells.Enqueue(neighbour);
+                        neighbour.Priority = Heuristics.Heuristic(neighbour, _end,_heuristic);
+
+                        FrontierCells.Enqueue(neighbour);
+                    }
                 }
             }
-
         }
+        DiagnosticManager.Stop();
     }
-    private static IEnumerator FindPathWithDelay(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
+    private static IEnumerator FindPathWithDelay(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                                                                                VisualizationSetting.EHeuristics _heuristic)
     {
+        DiagnosticManager.Start();
+
         FrontierCells = new PriorityQueue<Cell>();
         VisitedCells = new List<Cell>();
         PathCells = new List<Cell>();
 
         FrontierCells.Enqueue(_start);
+        _start.DistTraveled = 0;
 
         while (FrontierCells.Count() > 0)
         {
+            DiagnosticManager.Record();
+
             Cell curr = FrontierCells.Dequeue();
             VisitedCells.Add(curr);
 
@@ -80,36 +97,46 @@ public static class GreedyBestFirstSearch
             if (curr == _end)
             {
                 PathCells = Helper.RetracePath(_start, _end);
-                break;
+                yield break;
             }
 
             foreach (Cell neighbour in curr.GetNeighbours(_movementSettings, _grid))
             {
                 if (!VisitedCells.Contains(neighbour))
                 {
-                    int dist = Helper.GetDistance(curr, neighbour);
-                    int newCost = dist + neighbour.DistTraveled + curr.Weigth;
-                    neighbour.DistTraveled = newCost;
-                    neighbour.Parent = curr;
+                    int newCost = Helper.GetDistance(curr, neighbour) + curr.DistTraveled + neighbour.Weigth;
+                    if (neighbour.DistTraveled == -1)
+                    {
+                        neighbour.DistTraveled = newCost;
+                        neighbour.Parent = curr;
 
-                    neighbour.Priority = Helper.GetDistance(neighbour, _end);
+                        neighbour.Priority = Heuristics.Heuristic(neighbour, _end, _heuristic);
 
-                    FrontierCells.Enqueue(neighbour);
+                        FrontierCells.Enqueue(neighbour);
+                    }
                 }
             }
             yield return new WaitForSeconds(Helper.TimeStep);
         }
+        Debug.Log("2");
+        DiagnosticManager.Stop();
     }
-    private static IEnumerator FindPathWithInput(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
+    private static IEnumerator FindPathWithInput(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                                                                                VisualizationSetting.EHeuristics _heuristic)
     {
+        DiagnosticManager.Start();
+
         FrontierCells = new PriorityQueue<Cell>();
         VisitedCells = new List<Cell>();
         PathCells = new List<Cell>();
 
         FrontierCells.Enqueue(_start);
+        _start.DistTraveled = 0;
 
         while (FrontierCells.Count() > 0)
         {
+            DiagnosticManager.Record();
+
             Cell curr = FrontierCells.Dequeue();
             VisitedCells.Add(curr);
 
@@ -117,21 +144,24 @@ public static class GreedyBestFirstSearch
             if (curr == _end)
             {
                 PathCells = Helper.RetracePath(_start, _end);
-                break;
+                yield break;
             }
 
             foreach (Cell neighbour in curr.GetNeighbours(_movementSettings, _grid))
             {
                 if (!VisitedCells.Contains(neighbour))
                 {
-                    int dist = Helper.GetDistance(curr, neighbour);
-                    int newCost = dist + neighbour.DistTraveled + curr.Weigth;
-                    neighbour.DistTraveled = newCost;
-                    neighbour.Parent = curr;
+                    int newCost = Helper.GetDistance(curr, neighbour) + curr.DistTraveled + neighbour.Weigth;
+                    if (neighbour.DistTraveled == -1)
+                    {
+                        neighbour.DistTraveled = newCost;
+                        neighbour.Parent = curr;
 
-                    neighbour.Priority = Helper.GetDistance(neighbour, _end);
+                        neighbour.Priority = Heuristics.Heuristic(neighbour, _end, _heuristic);
 
-                    FrontierCells.Enqueue(neighbour);
+
+                        FrontierCells.Enqueue(neighbour);
+                    }
                 }
             }
             while (!Input.GetKey(KeyCode.Space))
@@ -139,6 +169,7 @@ public static class GreedyBestFirstSearch
 
             yield return new WaitForSeconds(Helper.TimeStep);
         }
+        DiagnosticManager.Stop();
     }
 
     public static void Clear()

@@ -9,7 +9,8 @@ public static class BFS
 
     public static List<Cell> PathCells { get; private set; }
 
-    public static void FindPath(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid, VisualizationSetting.EVisualizationType _type)
+    public static void FindPath(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
+                                                            VisualizationSetting.EVisualizationType _type)
     {
         switch (_type)
         {
@@ -28,17 +29,16 @@ public static class BFS
     }
     private static void FindPathInstant(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
     {
+        DiagnosticManager.Start();
+
         FrontierCells = new Queue<Cell>();
         VisitedCells = new List<Cell>();
-
-        int iterationCount = 0;
-        float time = Time.realtimeSinceStartup;
 
         FrontierCells.Enqueue(_start);
 
         while (FrontierCells.Count > 0)
         {
-            iterationCount++;
+            DiagnosticManager.Record();
 
             Cell curr = FrontierCells.Dequeue();
             VisitedCells.Add(curr);
@@ -64,21 +64,21 @@ public static class BFS
                 }   
             }
         }
-        Debug.Log(Time.realtimeSinceStartup - time);
+        DiagnosticManager.Stop();
     }
 
     private static IEnumerator FindPathWithDelay(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
     {
+        DiagnosticManager.Start();
+
         FrontierCells = new Queue<Cell>();
         VisitedCells = new List<Cell>();
-
-        int iterationCount = 0;
 
         FrontierCells.Enqueue(_start);
 
         while (FrontierCells.Count > 0)
         {
-            iterationCount++;
+            DiagnosticManager.Record();
 
             Cell curr = FrontierCells.Dequeue();
             VisitedCells.Add(curr);
@@ -105,21 +105,20 @@ public static class BFS
             }
             yield return new WaitForSeconds(Helper.TimeStep);
         }
+        DiagnosticManager.Stop();
     }
 
     private static IEnumerator FindPathWithInput(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid)
     {
+        DiagnosticManager.Start();
         FrontierCells = new Queue<Cell>();
         VisitedCells = new List<Cell>();
-
-        int iterationCount = 0;
-        float time = Time.realtimeSinceStartup;
 
         FrontierCells.Enqueue(_start);
 
         while (FrontierCells.Count > 0)
         {
-            iterationCount++;
+            DiagnosticManager.Record();
 
             Cell curr = FrontierCells.Dequeue();
             VisitedCells.Add(curr);
@@ -149,6 +148,7 @@ public static class BFS
 
             yield return new WaitForSeconds(0.1f);
         }
+        DiagnosticManager.Stop();
     }
 
     public static void Clear()

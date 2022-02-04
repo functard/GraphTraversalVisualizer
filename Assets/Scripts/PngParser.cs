@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PngParser : MonoBehaviour
 {
@@ -19,7 +17,7 @@ public class PngParser : MonoBehaviour
             }
         }
 
-        Astar.FindPath(grid.GetNodeAtPosition(0, 0), grid.GetNodeAtPosition(grid.Width - 1, grid.Height - 1), EMovementSettings.Diagonal, grid, VisualizationSetting.EVisualizationType.INSTANT);
+        //Astar.FindPath(grid.GetNodeAtPosition(0, 0), grid.GetNodeAtPosition(grid.Width - 1, grid.Height - 1), EMovementSettings.DIAGONAL, grid, VisualizationSetting.EVisualizationType.INSTANT);
 
         return grid;
     }

@@ -10,7 +10,7 @@ public class CellSelectionManager : MonoBehaviour
     [SerializeField] private Color m_WaterColor = Color.blue;
     [SerializeField] private Color m_MuddColor = new Color(123, 0, 0);
 
-    private enum CellSelection { Default, Start, End, Wall, Grass, Mudd, Water }
+    private enum CellSelection { DEFAULT, START, END, WALL, GRASS, MUDD, WATER }
 
     private CellSelection m_CellSelection;
 
@@ -24,7 +24,7 @@ public class CellSelectionManager : MonoBehaviour
     public void Init()
     {
         m_cam = Camera.main;
-        m_CellSelection = CellSelection.Start;
+        m_CellSelection = CellSelection.START;
 
         //initialize starting cell as bottom left corner
         m_StartPos = new Vector2Int(0, 0);
@@ -65,14 +65,14 @@ public class CellSelectionManager : MonoBehaviour
 
             switch (m_CellSelection)
             {
-                case CellSelection.Default:
+                case CellSelection.DEFAULT:
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = true;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = Color.white;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 0;
 
                     break;
                 // start cell selection
-                case CellSelection.Start:
+                case CellSelection.START:
                     // reset old selection
                     m_GridManager.Grid.GetNodeAtPosition(m_StartPos).SpriteRenderer.sprite = m_DefaultImage;
 
@@ -86,7 +86,7 @@ public class CellSelectionManager : MonoBehaviour
                     break;
 
                 // end cell selection 
-                case CellSelection.End:
+                case CellSelection.END:
                     // reset old selection
                     m_GridManager.Grid.GetNodeAtPosition(m_EndPos).SpriteRenderer.sprite = m_DefaultImage;
 
@@ -100,24 +100,24 @@ public class CellSelectionManager : MonoBehaviour
                     break;
 
                 // wall cell selection
-                case CellSelection.Wall:
+                case CellSelection.WALL:
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = false;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_WallCellColor;
                     break;
-                case CellSelection.Grass:
+                case CellSelection.GRASS:
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = true;
-                    m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 3;
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 4;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_GrassColor;
                     break;
-                case CellSelection.Water:
+                case CellSelection.WATER:
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = true;
-                    m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 5;
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 9;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_WaterColor;
                     break;
-                case CellSelection.Mudd:
+                case CellSelection.MUDD:
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = true;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = m_MuddColor;
-                    m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 7;
+                    m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 14;
                     break;
                 default:
                     break;
@@ -137,32 +137,32 @@ public class CellSelectionManager : MonoBehaviour
     #region Button Functions
     public void OnClick_StartCellSelection()
     {
-        m_CellSelection = CellSelection.Start;
+        m_CellSelection = CellSelection.START;
     }
     public void OnClick_EndCellSelection()
     {
-        m_CellSelection = CellSelection.End;
+        m_CellSelection = CellSelection.END;
     }
     public void OnClick_DefaultCellSelection()
     {
-        m_CellSelection = CellSelection.Default;
+        m_CellSelection = CellSelection.DEFAULT;
     }
     public void OnClick_WallCellSelection()
     {
-        m_CellSelection = CellSelection.Wall;
+        m_CellSelection = CellSelection.WALL;
     }
     public void OnClick_WaterCellSelection()
     {
-        m_CellSelection = CellSelection.Water;
+        m_CellSelection = CellSelection.WATER;
     }
     public void OnClick_GrassCellSelection()
     {
-        m_CellSelection = CellSelection.Grass;
+        m_CellSelection = CellSelection.GRASS;
     }
 
     public void OnClick_MuddCellSelection()
     {
-        m_CellSelection = CellSelection.Mudd;
+        m_CellSelection = CellSelection.MUDD;
     }
     #endregion
 }

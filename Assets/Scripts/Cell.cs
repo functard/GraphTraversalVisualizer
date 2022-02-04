@@ -3,14 +3,6 @@ using UnityEngine;
 using System;
 using TMPro;
 
-public enum ECellType
-{
-    NORMAL,
-    GRASS,
-    MUDD,
-    WATER
-}
-
 public class Cell : IComparable<Cell>
 {
     public int X { get; private set; }
@@ -108,7 +100,7 @@ public class Cell : IComparable<Cell>
 
         switch (_movementSettings)
         {
-            case EMovementSettings.NoDiagonal:
+            case EMovementSettings.NO_DIAGONAL:
                 for (int w = -1; w <= 1; w += 2)
                 {
                     int checkX = w + X;
@@ -126,7 +118,7 @@ public class Cell : IComparable<Cell>
                 }
 
                 return neighbours;
-            case EMovementSettings.Diagonal:
+            case EMovementSettings.DIAGONAL:
 
                 //TODO: start with vertical/horizontal, otherwise weigthless algorithms looks off
 
@@ -189,7 +181,7 @@ public class Cell : IComparable<Cell>
                 }
 
                 return neighbours;
-            case EMovementSettings.DontCrossCorners:
+            case EMovementSettings.DONT_CROSS_CORNERS:
                 for (int w = -1; w <= 1; w++)
                 {
                     for (int h = -1; h <= 1; h++)
