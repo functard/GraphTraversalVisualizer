@@ -58,7 +58,7 @@ public static class GreedyBestFirstSearch
                 if (!VisitedCells.Contains(neighbour))
                 {
                     //int dist = Helper.GetDistance(curr, neighbour);
-                    int newCost = Helper.GetDistance(curr, neighbour) + curr.DistTraveled + neighbour.Weigth;
+                    int newCost = Heuristics.Heuristic(curr, neighbour, _heuristic) + curr.DistTraveled + neighbour.Weigth;
 
                     if (neighbour.DistTraveled == -1)
                     {
@@ -104,7 +104,7 @@ public static class GreedyBestFirstSearch
             {
                 if (!VisitedCells.Contains(neighbour))
                 {
-                    int newCost = Helper.GetDistance(curr, neighbour) + curr.DistTraveled + neighbour.Weigth;
+                    int newCost = Heuristics.Heuristic(curr, neighbour, _heuristic) + curr.DistTraveled + neighbour.Weigth;
                     if (neighbour.DistTraveled == -1)
                     {
                         neighbour.DistTraveled = newCost;
@@ -151,7 +151,7 @@ public static class GreedyBestFirstSearch
             {
                 if (!VisitedCells.Contains(neighbour))
                 {
-                    int newCost = Helper.GetDistance(curr, neighbour) + curr.DistTraveled + neighbour.Weigth;
+                    int newCost = Heuristics.Heuristic(curr, neighbour,_heuristic) + curr.DistTraveled + neighbour.Weigth;
                     if (neighbour.DistTraveled == -1)
                     {
                         neighbour.DistTraveled = newCost;

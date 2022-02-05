@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dijkstra : MonoBehaviour
+public class Dijkstra
 {
     public static PriorityQueue<Cell> FrontierCells { get; private set; }
     public static List<Cell> VisitedCells { get; private set; }
@@ -11,6 +11,7 @@ public class Dijkstra : MonoBehaviour
     public static void FindPath(Cell _start, Cell _end, EMovementSettings _movementSettings, CellGrid _grid,
                                 VisualizationSetting.EVisualizationType _type, VisualizationSetting.EHeuristics _heuristic)
     {
+
         switch (_type)
         {
             case VisualizationSetting.EVisualizationType.DELAYED:

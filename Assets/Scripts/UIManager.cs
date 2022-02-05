@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject m_ShowDistanceCostButton;
     [SerializeField] private GameObject m_ShowParentButton;
     [SerializeField] private GameObject m_GenerateNoiseGridButton;
+    [SerializeField] private GameObject m_DiagnosticsPanel;
     [SerializeField] private Slider m_AnimationSpeedSlider;
 
     /// <summary>
@@ -31,6 +32,7 @@ public class UIManager : MonoBehaviour
         m_ShowDistanceCostButton.SetActive(false);
         m_AnimationSpeedSlider.gameObject.SetActive(false);
         m_GenerateNoiseGridButton.SetActive(false);
+        m_DiagnosticsPanel.SetActive(false);
     }
 
     /// <summary>
@@ -48,6 +50,7 @@ public class UIManager : MonoBehaviour
         m_ShowDistanceCostButton.SetActive(false);
         m_AnimationSpeedSlider.gameObject.SetActive(false);
         m_GenerateNoiseGridButton.SetActive(true);
+        m_DiagnosticsPanel.SetActive(false);
     }
 
     /// <summary>
@@ -62,6 +65,7 @@ public class UIManager : MonoBehaviour
         m_VisualizeButton.SetActive(false);
         m_AnimationSpeedSlider.gameObject.SetActive(true);
         m_GenerateNoiseGridButton.SetActive(false);
+        m_DiagnosticsPanel.SetActive(true);
     }
     #region Button Functions
 

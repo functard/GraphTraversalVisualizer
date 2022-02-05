@@ -34,7 +34,7 @@ public static class Astar
         ClosedList = new List<Cell>();
 
         _start.G = 0;
-        _start.H = Helper.GetDistance(_start, _end);
+        _start.H = Heuristics.Heuristic(_start, _end,_heuristic);
 
         OpenList.Enqueue(_start);
 
@@ -56,7 +56,7 @@ public static class Astar
             {
                 if (!ClosedList.Contains(neighbour))
                 {
-                    int newCostToNeighbour = curr.G + Helper.GetDistance(curr, neighbour) + neighbour.Weigth;
+                    int newCostToNeighbour = curr.G + Heuristics.Heuristic(curr, neighbour,_heuristic) + neighbour.Weigth;
                     if (newCostToNeighbour < neighbour.G || !OpenList.Contains(neighbour))
                     {
                         neighbour.G = newCostToNeighbour;
@@ -102,7 +102,7 @@ public static class Astar
             {
                 if (!ClosedList.Contains(neighbour))
                 {
-                    int newCostToNeighbour = curr.G + Helper.GetDistance(curr, neighbour) + neighbour.Weigth;
+                    int newCostToNeighbour = curr.G + Heuristics.Heuristic(curr, neighbour,_heuristic) + neighbour.Weigth;
                     if (newCostToNeighbour < neighbour.G || !OpenList.Contains(neighbour))
                     {
                         neighbour.G = newCostToNeighbour;
@@ -148,7 +148,7 @@ public static class Astar
             {
                 if (!ClosedList.Contains(neighbour))
                 {
-                    int tentativeScore = curr.G + Helper.GetDistance(curr, neighbour) + neighbour.Weigth;
+                    int tentativeScore = curr.G + Heuristics.Heuristic(curr, neighbour,_heuristic) + neighbour.Weigth;
                     if (tentativeScore < neighbour.G || !OpenList.Contains(neighbour))
                     {
                         neighbour.G = tentativeScore;
