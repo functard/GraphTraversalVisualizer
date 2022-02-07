@@ -39,7 +39,6 @@ public class DiagnosticManager : MonoBehaviour
     {
         m_EllapsedTime = Time.realtimeSinceStartup - m_EllapsedTime;
         m_Instance.DisplayDiagnosticsText();
-        Debug.Log("iteration : " + m_IterationCount + "Time : " + m_EllapsedTime);
     }
     private void DisplayDiagnosticsText()
     {

@@ -80,7 +80,6 @@ public class CellGrid
                 // # # # # # # #
                 // # # # # # # #
                 // # # # # # # #
-
                 if (h >= m_Height)
                 {
                     for (int i = 0; i < m_Width; i++)

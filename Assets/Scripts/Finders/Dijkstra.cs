@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dijkstra
+public static class Dijkstra
 {
     public static PriorityQueue<Cell> FrontierCells { get; private set; }
     public static List<Cell> VisitedCells { get; private set; }
