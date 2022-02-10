@@ -9,10 +9,10 @@ public class AppManager : MonoBehaviour
     [SerializeField] private CellSelectionManager m_CellSelectionManager;
     [SerializeField] private VisualizerManager m_VisualizerManager;
 
-    public enum AppStates { SIZE_SELECTION, CELL_SELECTION, RUNNING }
+    public enum EAppStates { SIZE_SELECTION, CELL_SELECTION, RUNNING }
 
     [HideInInspector]
-    public AppStates AppState;
+    public EAppStates AppState;
 
     public static AppManager Instance { get { return m_Instance; } }
     private static AppManager m_Instance;
@@ -25,7 +25,7 @@ public class AppManager : MonoBehaviour
             m_Instance = this;
     }
 
-    public void UpdateAppState(AppStates _state)
+    public void UpdateAppState(EAppStates _state)
     {
         // if same state
         if (AppState == _state)
@@ -33,18 +33,18 @@ public class AppManager : MonoBehaviour
 
         switch (_state)
         {
-            case AppStates.SIZE_SELECTION:
+            case EAppStates.SIZE_SELECTION:
                 m_UIManager.HandleResizeStateButtons();
                 m_CamManager.Init();
                 m_VisualizerManager.ClearPathLines();
                 Helper.ClearAlgorithms();
                 break;
-            case AppStates.CELL_SELECTION:
+            case EAppStates.CELL_SELECTION:
                 m_UIManager.HandleCellSelectionStateButtons();
                 m_GridManager.InitGrid();
                 m_CellSelectionManager.Init();
                 break;
-            case AppStates.RUNNING:
+            case EAppStates.RUNNING:
                 m_UIManager.HandleRunningStateButtons();
                 m_VisualizerManager.StartPathFinder();
                 break;

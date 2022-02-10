@@ -164,7 +164,7 @@ public static class GreedyBestFirstSearch
                     }
                 }
             }
-            while (!Input.GetKey(KeyCode.Space))
+            while (!Input.GetKey(KeyCode.RightArrow))
                 yield return null;
 
             yield return new WaitForSeconds(Helper.TimeStep);

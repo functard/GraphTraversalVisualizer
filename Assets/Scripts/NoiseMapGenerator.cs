@@ -3,7 +3,7 @@
 public class NoiseMapGenerator : MonoBehaviour
 {
     [SerializeField]
-    private static float m_Scale = 14;
+    private static float m_Scale = 17;
 
     public static void GenerateMap(CellGrid _grid)
     {

@@ -50,7 +50,7 @@ public static class DFS
             foreach (Cell neighbour in curr.GetNeighbours(_movementSettings, _grid))
             {
                 // if not in visited list
-                if (!VisitedCells.Contains(neighbour)/* && !FrontierCells.Contains(neighbour)*/)
+                if (!VisitedCells.Contains(neighbour))
                 {
                     // set parent node
                     neighbour.Parent = curr;
@@ -92,7 +92,7 @@ public static class DFS
             foreach (Cell neighbour in curr.GetNeighbours(_movementSettings, _grid))
             {
                 // if not in visited list
-                if (!VisitedCells.Contains(neighbour)/* && !FrontierCells.Contains(neighbour)*/)
+                if (!VisitedCells.Contains(neighbour))
                 {
                     // set parent node
                     neighbour.Parent = curr;
@@ -135,7 +135,7 @@ public static class DFS
             foreach (Cell neighbour in curr.GetNeighbours(_movementSettings, _grid))
             {
                 // if not in visited list
-                if (!VisitedCells.Contains(neighbour)/* && !FrontierCells.Contains(neighbour)*/)
+                if (!VisitedCells.Contains(neighbour))
                 {
                     // set parent node
                     neighbour.Parent = curr;
@@ -151,7 +151,7 @@ public static class DFS
                 Debug.Log("done");
                 yield break;
             }
-            while (!Input.GetKeyDown(KeyCode.Space))
+            while (!Input.GetKeyDown(KeyCode.RightArrow))
                 yield return null;
 
             yield return new WaitForSeconds(0.1f);

@@ -143,7 +143,7 @@ public static class BFS
                     FrontierCells.Enqueue(neighbour);
                 }
             }
-            while (!Input.GetKeyDown(KeyCode.Space))
+            while (!Input.GetKeyDown(KeyCode.RightArrow))
                 yield return null;
 
             yield return new WaitForSeconds(0.1f);

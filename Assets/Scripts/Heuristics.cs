@@ -32,7 +32,7 @@ public static class Heuristics
     {
         int dx = Mathf.Abs(_a.X - _b.X);
         int dy = Mathf.Abs(_a.Y - _b.Y);
-        return dx + dy;
+        return (dx + dy) * 10;
     }
 
     private static int Octile(Cell _a, Cell _b)

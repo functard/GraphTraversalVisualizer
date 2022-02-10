@@ -22,7 +22,7 @@ public class VisualizerManager : MonoBehaviour
     // ?
     private void Update()
     {
-        if (!(AppManager.Instance.AppState == AppManager.AppStates.RUNNING))
+        if (!(AppManager.Instance.AppState == AppManager.EAppStates.RUNNING))
             return;
 
         ShowParentArrows(m_GridManager.Grid.ToList());
@@ -245,7 +245,7 @@ public class VisualizerManager : MonoBehaviour
         ClearPathLines();
         m_GridManager.Grid.Reset();
         m_CellManager.Init();
-        AppManager.Instance.AppState = AppManager.AppStates.CELL_SELECTION;
+        AppManager.Instance.AppState = AppManager.EAppStates.CELL_SELECTION;
         m_UIManager.HandleCellSelectionStateButtons();
         Helper.ClearAlgorithms();
     }
@@ -255,7 +255,7 @@ public class VisualizerManager : MonoBehaviour
         ClearDistanceCosts();
         ClearPathLines();
         Helper.ClearAlgorithms();
-        AppManager.Instance.AppState = AppManager.AppStates.CELL_SELECTION;
+        AppManager.Instance.AppState = AppManager.EAppStates.CELL_SELECTION;
         m_UIManager.HandleCellSelectionStateButtons();
         Helper.ClearAlgorithms();
     }

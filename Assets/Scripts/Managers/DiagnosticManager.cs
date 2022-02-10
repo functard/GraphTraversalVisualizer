@@ -14,9 +14,6 @@ public class DiagnosticManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI m_EllapsedTimeText;
 
-    [SerializeField]
-    private TextMeshProUGUI m_PathCountText;
-
     private void Awake()
     {
         if (m_Instance != null && m_Instance != this)

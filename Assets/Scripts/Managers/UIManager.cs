@@ -71,16 +71,16 @@ public class UIManager : MonoBehaviour
 
     public void OnClick_Visualize()
     {
-        AppManager.Instance.UpdateAppState(AppManager.AppStates.RUNNING);
+        AppManager.Instance.UpdateAppState(AppManager.EAppStates.RUNNING);
     }
     public void OnClick_ResizeConfirm()
     {
-        AppManager.Instance.UpdateAppState(AppManager.AppStates.CELL_SELECTION);
+        AppManager.Instance.UpdateAppState(AppManager.EAppStates.CELL_SELECTION);
     }
 
     public void OnClick_Restart()
     {
-        AppManager.Instance.UpdateAppState(AppManager.AppStates.SIZE_SELECTION);
+        AppManager.Instance.UpdateAppState(AppManager.EAppStates.SIZE_SELECTION);
     }
     #endregion
 

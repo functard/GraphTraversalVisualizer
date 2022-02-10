@@ -57,7 +57,7 @@ public static class Dijkstra
                 // if not in any of the lists
                 if (!VisitedCells.Contains(neighbour))
                 {
-                    int newDistTraveled = Heuristics.Heuristic(curr, neighbour, _heuristic) + curr.DistTraveled + neighbour.Weigth;
+                    int newDistTraveled = Heuristics.Heuristic(curr, neighbour, VisualizationSetting.EHeuristics.EUCLIDIAN) + curr.DistTraveled + neighbour.Weigth;
 
                     // if Distance not updated or new distance is better
                     if (neighbour.DistTraveled == -1 || newDistTraveled < neighbour.DistTraveled)
@@ -106,7 +106,7 @@ public static class Dijkstra
                 // if not in any of the lists
                 if (!VisitedCells.Contains(neighbour))
                 {
-                    int newDistTraveled = Heuristics.Heuristic(curr, neighbour, _heuristic) + curr.DistTraveled + neighbour.Weigth;
+                    int newDistTraveled = Heuristics.Heuristic(curr, neighbour, VisualizationSetting.EHeuristics.EUCLIDIAN) + curr.DistTraveled + neighbour.Weigth;
                     // if Distance not updated or new distance is better
                     if (neighbour.DistTraveled == -1 || newDistTraveled < neighbour.DistTraveled)
                     {
@@ -154,7 +154,7 @@ public static class Dijkstra
                 // if not in any of the lists
                 if (!VisitedCells.Contains(neighbour))
                 {
-                    int newDistTraveled = Heuristics.Heuristic(curr, neighbour, _heuristic) + curr.DistTraveled + neighbour.Weigth;
+                    int newDistTraveled = Heuristics.Heuristic(curr, neighbour, VisualizationSetting.EHeuristics.EUCLIDIAN) + curr.DistTraveled + neighbour.Weigth;
 
                     // if Distance not updated or new distance is better
                     if (neighbour.DistTraveled == -1 || newDistTraveled < neighbour.DistTraveled)
@@ -169,7 +169,7 @@ public static class Dijkstra
                     }
                 }
             }
-            while (!Input.GetKeyDown(KeyCode.Space))
+            while (!Input.GetKeyDown(KeyCode.RightArrow))
                 yield return null;
 
             yield return new WaitForSeconds(0.1f);

@@ -39,7 +39,7 @@ public class CellSelectionManager : MonoBehaviour
 
     private void Update()
     {
-        if (AppManager.Instance.AppState != AppManager.AppStates.CELL_SELECTION)
+        if (AppManager.Instance.AppState != AppManager.EAppStates.CELL_SELECTION)
             return;
 
         // right mouse click
