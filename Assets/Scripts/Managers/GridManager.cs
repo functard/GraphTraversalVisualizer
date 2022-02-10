@@ -2,7 +2,7 @@
 
 public class GridManager : MonoBehaviour
 {
-    // A template grid is used because resizing the grid with canvas objects is very slow
+    // A template grid is used because resizing the grid with UI elements is very slow
     private CellGrid m_TemplateGrid;
     public CellGrid TemplateGrid { get { return m_TemplateGrid; } }
 

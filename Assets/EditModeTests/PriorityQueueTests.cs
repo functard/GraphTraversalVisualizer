@@ -11,30 +11,49 @@ namespace Tests
         {
             PriorityQueue<Cell> queue = new PriorityQueue<Cell>();
 
-            Cell a = new Cell(0, 0, null);
-            a.Priority = 25;
+            Cell a = new Cell(0, 0, null)
+            {
+                Priority = 25,
+                DistTraveled = 25
+            };
             queue.Enqueue(a);
 
-            Cell b = new Cell(0, 0, null);
-            b.Priority = 12;
+            Cell b = new Cell(0, 0, null)
+            {
+                Priority = 12,
+                DistTraveled = 12
+
+            };
             queue.Enqueue(b);
 
 
-            Cell c = new Cell(0, 0, null);
-            c.Priority = 0;
+            Cell c = new Cell(0, 0, null)
+            {
+                Priority = 0,
+                DistTraveled = 0
+            };
             queue.Enqueue(c);
 
 
-            Cell d = new Cell(0, 0, null);
-            d.Priority = 1;
+            Cell d = new Cell(0, 0, null)
+            {
+                Priority = 1,
+                DistTraveled = 1
+            };
             queue.Enqueue(d);
 
-            Cell e = new Cell(0, 0, null);
-            e.Priority = 2;
+            Cell e = new Cell(0, 0, null)
+            {
+                Priority = 2,
+                DistTraveled = 2
+            };
             queue.Enqueue(e);
 
-            Cell f = new Cell(0, 0, null);
-            f.Priority = -5;
+            Cell f = new Cell(0, 0, null)
+            {
+                Priority = -5,
+                DistTraveled = -5
+            };
             queue.Enqueue(f);
 
             Assert.AreEqual(f, queue.Dequeue());

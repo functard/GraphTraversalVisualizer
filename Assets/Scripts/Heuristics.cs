@@ -37,11 +37,11 @@ public static class Heuristics
 
     private static int Octile(Cell _a, Cell _b)
     {
-        int dstX = Mathf.Abs(_a.X - _b.X);
-        int dstY = Mathf.Abs(_a.Y - _b.Y);
-        if (dstX < dstY)
-            return 10 * dstX + 4 * dstY;
-        else
-            return 10 * dstY + 4 * dstX;
+        // 1.4 * min(dx,dy) + dx - dy
+        int dx = Mathf.Abs(_a.X - _b.X);
+        int dy = Mathf.Abs(_a.Y - _b.Y);
+
+        return 14 * Mathf.Min(dx, dy) + 10 * Mathf.Abs(dx - dy);
+
     }
 }

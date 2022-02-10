@@ -56,7 +56,7 @@ public class CamManager : MonoBehaviour
         //scroll up
         if (mouseWheel > 0)
         {
-            //// bounds check (may be unnessecary in stand-alone version) 
+            // bounds check (may be unnessecary in stand-alone version) 
             Vector3 mouseWorldPos = m_Cam.ScreenToWorldPoint(Input.mousePosition);
 
             if (mouseWorldPos.x < -0.5f || mouseWorldPos.x > m_GridManager.TemplateGrid.Width ||

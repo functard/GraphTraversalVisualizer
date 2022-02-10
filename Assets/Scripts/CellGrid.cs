@@ -91,10 +91,6 @@ public class CellGrid
         }
         m_Width = _width;
         m_Height = _heigth;
-
-#if UNITY_EDITOR
-        Debug.Log("list count : " + m_Grid.Count + "grid size : " + m_Width * m_Height);
-#endif    
     }
   
     public Cell GetNodeAtPosition(int _x, int _y)

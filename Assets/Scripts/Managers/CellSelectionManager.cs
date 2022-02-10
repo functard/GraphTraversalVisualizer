@@ -61,7 +61,6 @@ public class CellSelectionManager : MonoBehaviour
 
             // reset weight
             m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 0;
-            //m_GridManager.Grid.GetNodeAtPosition(m_StartPos).SpriteRenderer.sprite = m_DefaultImage;
 
             switch (m_CellSelection)
             {
@@ -69,7 +68,6 @@ public class CellSelectionManager : MonoBehaviour
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Walkable = true;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).SpriteRenderer.color = Color.white;
                     m_GridManager.Grid.GetNodeAtPosition(x, y).Weigth = 0;
-
                     break;
                 // start cell selection
                 case CellSelection.START:

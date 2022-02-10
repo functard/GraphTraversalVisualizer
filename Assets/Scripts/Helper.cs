@@ -36,24 +36,6 @@ public static class Helper
     //    //return straigth + diagonal;
     //}
 
-    public static int GetManhattanDist(Cell _a, Cell _b)
-    {
-        int dstX = Mathf.Abs(_a.X - _b.X);
-        int dstY = Mathf.Abs(_a.Y - _b.Y);
-
-        return dstX + dstY;
-    }
-
-    public static float GetOctileDist(Cell _a, Cell _b)
-    {
-        int dstX = Mathf.Abs(_a.X - _b.X);
-        int dstY = Mathf.Abs(_a.Y - _b.Y);
-        if (dstX < dstY)
-            return 10 * dstX + 4 * dstY;
-        else
-            return 10 * dstY + 4 * dstX;
-    }
-
     public static List<Cell> RetracePath(Cell _start, Cell _end)
     {
         DiagnosticManager.Stop();

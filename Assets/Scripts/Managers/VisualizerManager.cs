@@ -19,7 +19,7 @@ public class VisualizerManager : MonoBehaviour
     [SerializeField] private Color m_VisitedCellColor = Color.red;
     [SerializeField] private Color m_PathCellColor = Color.cyan;
 
-    // ?
+
     private void Update()
     {
         if (!(AppManager.Instance.AppState == AppManager.EAppStates.RUNNING))
@@ -33,7 +33,6 @@ public class VisualizerManager : MonoBehaviour
                 break;
             case VisualizationSetting.EAlgorihmType.DIJKSTRA:
                 PaintCells(Dijkstra.FrontierCells.ToList(), Dijkstra.VisitedCells, Dijkstra.PathCells);
-                //ShowDiagnsostics(Dijkstra.IterationCount, Dijkstra.PathCells.Count, Dijkstra.EllapsedTime);
                 ShowDistanceCosts(Dijkstra.FrontierCells.ToList());
                 ShowDistanceCosts(Dijkstra.VisitedCells);
                 break;
@@ -94,13 +93,6 @@ public class VisualizerManager : MonoBehaviour
         }
     }
 
-    private void ShowDiagnsostics(int _iterationCount, int _pathCount, float _ellapsedTime)
-    {
-
-        Debug.Log(_ellapsedTime);
-        //Debug.Log("it : " + _iterationCount + " path : " + _pathCount + " time : " + _ellapsedTime);
-    }
-
     public void ClearPathLines()
     {
         m_LineRenderer.positionCount = 0;
@@ -134,7 +126,6 @@ public class VisualizerManager : MonoBehaviour
 
 
         m_GridManager.Grid.GetNodeAtPosition(m_CellManager.GetStartCellPos()).SpriteRenderer.color = Color.white;
-        //m_GridManager.Grid.GetNodeAtPosition(m_CellManager.GetEndCellPos()).SpriteRenderer.color = Color.white;
     }
 
     private void ShowDistanceCosts(IEnumerable<Cell> _cells)
