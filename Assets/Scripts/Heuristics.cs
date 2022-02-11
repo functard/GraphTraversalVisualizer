@@ -18,14 +18,23 @@ public static class Heuristics
                 return -1;
         }
     }
+
+    //
+    // values are multiplied by 14 (diagonal) and 10 (vertical/horizontal) in order to get rid of the decimal places
+    //
+
     private static int Euclidian(Cell _a, Cell _b)
     {
-        int dstX = Mathf.Abs(_a.X - _b.X);
-        int dstY = Mathf.Abs(_a.Y - _b.Y);
+        // min of dx,dy gives the needed diagonal movements, rest is horizontal/vertical(e.g cost of 1)
+        int dx = Mathf.Abs(_a.X - _b.X);
+        int dy = Mathf.Abs(_a.Y - _b.Y);
 
-        if (dstX > dstY)
-            return 14 * dstY + 10 * (dstX - dstY);
-        return 14 * dstX + 10 * (dstY - dstX);
+        //if min needed diagonal is dy
+        if (dx > dy)
+            return 14 * dy + 10 * Mathf.Abs(dx - dy);
+
+        //if min needed diagonal is dx
+        return 14 * dx + 10 * Mathf.Abs(dy - dx);
     }
 
     private static int Manhattan(Cell _a, Cell _b)
@@ -42,6 +51,5 @@ public static class Heuristics
         int dy = Mathf.Abs(_a.Y - _b.Y);
 
         return 14 * Mathf.Min(dx, dy) + 10 * Mathf.Abs(dx - dy);
-
     }
 }

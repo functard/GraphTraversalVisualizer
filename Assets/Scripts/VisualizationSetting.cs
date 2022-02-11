@@ -6,7 +6,7 @@ public class VisualizationSetting : MonoBehaviour
 {
     public enum EHeuristics { EUCLIDIAN, MANHATTAN, OCTILE }
     public enum EAlgorihmType { A_STAR, DIJKSTRA, BFS, DFS, GREEDY_BEST }
-    public enum EVisualizationType { DELAYED,INSTANT,INPUT }
+    public enum EVisualizationType { DELAYED, INSTANT, INPUT }
 
     public EHeuristics HeuristicType = EHeuristics.EUCLIDIAN;
     public EAlgorihmType AlgorithmType = EAlgorihmType.A_STAR;

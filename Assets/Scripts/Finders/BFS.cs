@@ -47,7 +47,7 @@ public static class BFS
             if (FrontierCells.Contains(_end))
             {
                 PathCells = Helper.RetracePath(_start, _end);
-                break;
+                return;
             }
 
             // for every neighbour

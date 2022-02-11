@@ -82,6 +82,9 @@ public static class Astar
         OpenList = new PriorityQueue<Cell>();
         ClosedList = new List<Cell>();
 
+        _start.G = 0;
+        _start.H = Heuristics.Heuristic(_start, _end, _heuristic);
+
         OpenList.Enqueue(_start);
 
         while (OpenList.Count() > 0)
@@ -129,6 +132,9 @@ public static class Astar
         OpenList = new PriorityQueue<Cell>();
         ClosedList = new List<Cell>();
 
+        _start.G = 0;
+        _start.H = Heuristics.Heuristic(_start, _end, _heuristic);
+
         OpenList.Enqueue(_start);
 
         while (OpenList.Count() > 0)
@@ -154,6 +160,7 @@ public static class Astar
                         neighbour.G = tentativeScore;
                         neighbour.H = Heuristics.Heuristic(neighbour, _end, _heuristic);
                         neighbour.Parent = curr;
+                        neighbour.Priority = neighbour.F;
 
                         if (!OpenList.Contains(neighbour))
                         {

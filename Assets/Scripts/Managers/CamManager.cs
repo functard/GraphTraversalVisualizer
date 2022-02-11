@@ -48,7 +48,6 @@ public class CamManager : MonoBehaviour
         m_CamPoses.Add(m_Cam.transform.position);
     }
 
-
     private void Zoom()
     {
         float mouseWheel = Input.GetAxisRaw("Mouse ScrollWheel");

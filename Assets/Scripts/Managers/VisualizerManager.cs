@@ -43,8 +43,6 @@ public class VisualizerManager : MonoBehaviour
                 break;
             case VisualizationSetting.EAlgorihmType.DFS:
                 PaintCells(DFS.FrontierCells, DFS.VisitedCells, DFS.PathCells);
-                ShowDistanceCosts(DFS.FrontierCells);
-                ShowDistanceCosts(DFS.VisitedCells);
                 break;
             case VisualizationSetting.EAlgorihmType.GREEDY_BEST:
                 PaintCells(GreedyBestFirstSearch.FrontierCells.ToList(), GreedyBestFirstSearch.VisitedCells, GreedyBestFirstSearch.PathCells);

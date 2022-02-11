@@ -36,7 +36,6 @@ public static class DFS
         PathCells = new List<Cell>();
 
         FrontierCells.Push(_start);
-        VisitedCells.Add(_start);
         while (FrontierCells.Count > 0)
         {
             DiagnosticManager.Record();
@@ -63,7 +62,7 @@ public static class DFS
             if (FrontierCells.Contains(_end))
             {
                 PathCells = Helper.RetracePath(_start, _end);
-                break;
+                return;
             }
         }
         DiagnosticManager.Stop();
@@ -78,7 +77,6 @@ public static class DFS
         PathCells = new List<Cell>();
 
         FrontierCells.Push(_start);
-        VisitedCells.Add(_start);
         while (FrontierCells.Count > 0)
         {
             DiagnosticManager.Record();
@@ -121,7 +119,6 @@ public static class DFS
         PathCells = new List<Cell>();
 
         FrontierCells.Push(_start);
-        VisitedCells.Add(_start);
         while (FrontierCells.Count > 0)
         {
             DiagnosticManager.Record();

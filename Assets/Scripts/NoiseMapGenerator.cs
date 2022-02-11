@@ -7,23 +7,23 @@ public class NoiseMapGenerator : MonoBehaviour
 
     public static void GenerateMap(CellGrid _grid)
     {
-        float[,] noise = GenerateNoise(_grid.Width, _grid.Height, m_Scale);
+        float[,] noiseMap = GenerateNoise(_grid.Width, _grid.Height, m_Scale);
 
         for (int w = 0; w < _grid.Width; w++)
         {
             for (int h = 0; h < _grid.Height; h++)
             {
-                if (noise[w, h] < 0.3f)
+                if (noiseMap[w, h] < 0.3f)
                 {
                     _grid.GetNodeAtPosition(w, h).SpriteRenderer.color = Color.white;
                     _grid.GetNodeAtPosition(w, h).Weigth = 0;
                 }
-                else if (noise[w, h] < 0.5f)
+                else if (noiseMap[w, h] < 0.5f)
                 {
                     _grid.GetNodeAtPosition(w, h).SpriteRenderer.color = Color.green;
                     _grid.GetNodeAtPosition(w, h).Weigth = 4;
                 }
-                else if (noise[w, h] < 0.75f)
+                else if (noiseMap[w, h] < 0.75f)
                 {
                     _grid.GetNodeAtPosition(w, h).SpriteRenderer.color = Color.blue;
                     _grid.GetNodeAtPosition(w, h).Weigth = 9;
